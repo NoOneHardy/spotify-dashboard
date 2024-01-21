@@ -1,0 +1,6 @@
+a {
+  text-decoration: none;
+  color: var(--spotify-text-dark);
+  font-family: circular-latin, sans-serif;
+  font-size: 1.1rem;
+}

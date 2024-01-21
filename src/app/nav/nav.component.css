@@ -1,0 +1,100 @@
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  height: 70px;
+  padding: 0 30px;
+}
+
+h2 {
+  color: var(--spotify-text-dark);
+  font-family: circular-latin, sans-serif;
+}
+
+.user {
+  margin-left: auto;
+  position: relative;
+  display: inline-block;
+  font-family: circular-latin, sans-serif;
+}
+
+.user-img-wrapper {
+  height: 43px;
+  width: 43px;
+  background-color: var(--spotify-background-base-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+}
+
+.user-image {
+  display: block;
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.user-options {
+  display: block;
+  position: absolute;
+  margin-top: 10px;
+  right: 0;
+  z-index: 1;
+  background-color: var(--spotify-background-dropdown-dark);
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3), 0 6px 8px rgba(0, 0, 0, 0.2);
+  color: var(--spotify-text-dark);
+  border-radius: 5px;
+  padding: 10px;
+  width: 225px;
+}
+
+.user-options>span {
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+}
+
+.user-options>span.user-name {
+  font-size: 1rem;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+.user-options>span.account {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.account a {
+  color: var(--spotify-text-dark);
+  text-decoration: none;
+}
+
+.user-options .material-icons-outlined  {
+  font-size: 16px;
+}
+
+.separator {
+  height: 1px;
+  width: calc(100% - 2 * 10px);
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 5px 10px 2px;
+}
+
+.user-options>span.logout {
+  font-weight: 700;
+  cursor: pointer;
+  width: fit-content;
+}
+
+app-login {
+  margin-left: auto;
+}

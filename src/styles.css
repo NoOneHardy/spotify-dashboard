@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined);
+
+@font-face {
+  font-family: circular-latin;
+  font-weight: 400;
+  src: url(https://encore.scdn.co/fonts/CircularSpotify-UI-Latin-Book-ffeb1e7f75131ff615f338c73751b633.woff2) format("woff2"),url(https://encore.scdn.co/fonts/CircularSpotify-UI-Latin-Book-ac71b98add4c5863080462c2e3252022.woff) format("woff")
+}
+
+@font-face {
+  font-family: circular-latin;
+  font-weight: 700;
+  src: url(https://encore.scdn.co/fonts/CircularSpotify-UI-Latin-Bold-39f75fe74e898cc9ebef1a4e8a6023b5.woff2) format("woff2"),url(https://encore.scdn.co/fonts/CircularSpotify-UI-Latin-Bold-8615f49cf86e86a16ebb9c5565e99743.woff) format("woff")
+}
+
+@font-face {
+  font-family: circular-latin;
+  font-style: normal;
+  font-weight: 900;
+  src: url(https://encore.scdn.co/fonts/CircularSpotify-UI-Latin-Black-765ca9bf8d2f11afb11dc49884b779ca.woff2) format("woff2"),url(https://encore.scdn.co/fonts/CircularSpotify-UI-Latin-Black-d11d90541e5f15158097018d3634a9e0.woff) format("woff")
+}
+
+:root {
+  --spotify-green: #1ed760;
+  --spotify-background-dropdown-dark: #282828;
+  --spotify-text-dark: #ffffffe6;
+  --spotify-background-base-dark: #0000008a;
+  --spotify-background-padding-top: #21125f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  background-image: linear-gradient(to top, #121212 60%, var(--spotify-background-padding-top))
+}
+
+html {height: 100%}
