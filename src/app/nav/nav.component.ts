@@ -3,7 +3,7 @@ import {LoginComponent} from "../login/login.component";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {AuthService} from "../shared/auth.service";
 import {Image} from "../spotify/interfaces/helper/image";
-import {UserService} from "../spotify/user.service";
+import {UserService} from "../spotify/user/user.service";
 import {User} from "../spotify/interfaces/user";
 
 @Component({
@@ -26,7 +26,7 @@ export class NavComponent {
   showUserOptions: boolean = false
 
   constructor(
-    private auth: AuthService,
+    protected auth: AuthService,
     private userS: UserService,
     private elRef: ElementRef
   ) {
@@ -35,7 +35,7 @@ export class NavComponent {
         this.getCurrentUser()
       }
     })
-    if (this.getTokenAvailable()) {
+    if (this.auth.getTokenAvailable()) {
       this.getCurrentUser()
     }
   }
@@ -47,15 +47,10 @@ export class NavComponent {
   }
 
   getCurrentUser() {
-    this.auth.refreshToken()
-    this.userS.getCurrentUser()?.subscribe((response) => {
+    this.userS.getCurrentUser().subscribe((response) => {
       this.userImage = response.images[0]
       this.user = response
     })
-  }
-
-  getTokenAvailable() {
-    return this.auth.getTokenAvailable()
   }
 
   toggleUserOptions() {

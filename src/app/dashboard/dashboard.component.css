@@ -1,0 +1,5 @@
+.dashboard {
+  display: flex;
+  padding: 0 30px;
+  justify-content: center;
+}

@@ -1,0 +1,35 @@
+<div class="player">
+  <div *ngIf="playbackState" class="playback-state">
+    <div class="playing-item" *ngIf="playbackState.item as item">
+      <div class="track" *ngIf="item.type === 'track'">
+        <img priority="true" [ngSrc]="item.album.images[0].url" alt="Image"
+             [height]="item.album.images[0].height"
+             [width]="item.album.images[0].width"
+             class="album-image">
+        <div class="track-info">
+          <h2>{{ item.name }}</h2>
+          <div class="artists">
+            <div class="artist" *ngFor="let artist of item.artists">
+              <div *ngIf="item.artists.indexOf(artist) < 5">
+                <span>{{ artist.name }}</span>
+                <span
+                  *ngIf="artist.id != item.artists[item.artists.length - 1].id && artist.id != item.artists[4].id">,</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="time">
+        <div class="progress">{{ playbackState.progress_ms | date:'m:ss' }}</div>
+        <div class="duration-indicator">
+          <div class="progress-indicator" [style]="'width:' + (100 / item.duration_ms * playbackState.progress_ms) + '%'"></div>
+        </div>
+        <div class="duration">{{ item.duration_ms | date: 'm:ss' }}</div>
+      </div>
+    </div>
+    <div class="actions" *ngIf="playbackState.actions as actions">
+      <span class="material-icons" *ngIf="!actions.disallows.resuming">play_arrow</span>
+      <span class="material-icons" *ngIf="!actions.disallows.pausing">pause</span>
+    </div>
+  </div>
+</div>

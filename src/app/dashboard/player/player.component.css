@@ -1,0 +1,75 @@
+.player {
+  --padding-player: 15px;
+  color: var(--spotify-text-dark);
+  font-family: circular-latin, sans-serif;
+  width: 40vw;
+  height: 300px;
+  background-color: var(--spotify-background-base-dark);
+  padding: var(--padding-player);
+  border-radius: 25px;
+  box-shadow: 2px 2px 15px black;
+}
+
+.track {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
+.track-info {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: hidden;
+}
+
+h2 {
+  height: fit-content;
+  font-size: 2rem;
+}
+
+.artists {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 5px;
+  color: #FFFFFFb6
+}
+
+.artist {
+  display: block;
+  white-space: nowrap;
+  padding-right: 1rch;
+}
+
+.album-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+.time {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-top: 25px;
+  font-size: 0.8rem;
+  column-gap: 10px;
+}
+
+.duration-indicator {
+  display: block;
+  width: 80%;
+  height: 2px;
+  background-color: var(--spotify-background-dropdown-dark);
+  border-radius: 1px;
+}
+
+.progress-indicator {
+  display: block;
+  height: 2px;
+  background-color: var(--spotify-green);
+  border-radius: 1px;
+  transition: width 1s linear;
+}

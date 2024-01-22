@@ -1,6 +1,6 @@
 <nav>
   <h2>{{user ? 'Hallo ' + user.display_name : 'Spotify Dashboard'}}</h2>
-  <app-login *ngIf="!getTokenAvailable()"></app-login>
+  <app-login *ngIf="!auth.getTokenAvailable()"></app-login>
   <div class="user" *ngIf="user">
     <button (click)="toggleUserOptions()" class="user-img-wrapper">
       <img [ngSrc]="userImage.url" *ngIf="userImage" [height]="userImage.height"
@@ -11,12 +11,11 @@
     <div (focusout)="showUserOptions = false" id="user-options" class="user-options" *ngIf="showUserOptions">
       <span class="user-name">{{ user.display_name }}</span>
       <span class="account">
-        <a [href]="user.external_urls.spotify">Konto</a>
+        <a [href]="user.external_urls.spotify">Profil</a>
         <a [href]="user.external_urls.spotify"><span class="material-icons-outlined">open_in_new</span></a>
       </span>
-      <span>Produkt: {{ user.product.substring(0, 1).toUpperCase() + user.product.substring(1) }}</span>
       <div class="separator"></div>
-      <span class="logout"><a (click)="logout()" *ngIf="getTokenAvailable()">Abmelden</a></span>
+      <span class="logout"><a (click)="logout()" *ngIf="auth.getTokenAvailable()">Abmelden</a></span>
     </div>
   </div>
 </nav>

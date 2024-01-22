@@ -15,7 +15,8 @@ export class AuthService {
   private readonly redirectUrlToken: string = 'http://localhost:4200'
   private readonly scopes = [
     'user-read-private',
-    'user-read-email'
+    'user-read-email',
+    'user-read-playback-state'
   ]
 
   private readonly authUrl: string
@@ -54,6 +55,9 @@ export class AuthService {
     }).subscribe((response) => {
       sessionStorage.setItem('refreshToken', response.refresh_token)
       sessionStorage.setItem('token', response.access_token)
+      let now = new Date()
+      now.setMinutes(now.getMinutes() + 59)
+      sessionStorage.setItem('valid', now.toISOString())
       this.router.navigateByUrl('').then()
       this.tokenAvailable$.next(true)
       this.tokenAvailable = true
@@ -62,6 +66,9 @@ export class AuthService {
   }
 
   refreshToken() {
+    if ((new Date(sessionStorage.getItem('valid')!)) > new Date()) {
+      return
+    }
     const refreshToken = sessionStorage.getItem('refreshToken')
     if (refreshToken == null) {
       console.log('No token provided please log in again')
@@ -87,6 +94,9 @@ export class AuthService {
       headers: headers
     }).subscribe((response) => {
       sessionStorage.setItem('token', response.access_token)
+      let now = new Date()
+      now.setMinutes(now.getMinutes() + 59)
+      sessionStorage.setItem('valid', now.toISOString())
     })
   }
 

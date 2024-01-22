@@ -40,4 +40,4 @@ body {
   background-image: linear-gradient(to top, #121212 60%, var(--spotify-background-padding-top))
 }
 
-html {height: 100%}
+html {min-height: 100%}
