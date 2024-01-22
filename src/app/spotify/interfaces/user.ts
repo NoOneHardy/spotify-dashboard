@@ -1,23 +1,18 @@
-import {UserImage} from "./user-image";
+import {Image} from "./helper/image";
+import {ExternalUrls} from "./helper/external-urls";
+import {Followers} from "./followers"
+import {ExplicitContent} from "./helper/explicit-content";
 
 export interface User {
   country: string
   display_name: string
   email: string
-  explicit_content: {
-    filter_enabled: boolean
-    filter_locked: boolean
-  }
-  external_urls: {
-    spotify: string
-  }
-  followers: {
-    href: string | null
-    total: number
-  }
+  explicit_content: ExplicitContent
+  external_urls: ExternalUrls
+  followers: Followers
   href: string
   id: string
-  images: UserImage[]
+  images: Image[]
   product: string
   type: string
   uri: string

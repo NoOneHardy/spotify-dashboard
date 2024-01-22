@@ -2,7 +2,7 @@ import {Component, ElementRef} from '@angular/core';
 import {LoginComponent} from "../login/login.component";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {AuthService} from "../shared/auth.service";
-import {UserImage} from "../spotify/interfaces/user-image";
+import {Image} from "../spotify/interfaces/helper/image";
 import {UserService} from "../spotify/user.service";
 import {User} from "../spotify/interfaces/user";
 
@@ -21,7 +21,7 @@ import {User} from "../spotify/interfaces/user";
   styleUrl: './nav.component.css'
 })
 export class NavComponent {
-  userImage: UserImage | null = null
+  userImage: Image | null = null
   user: User | null = null
   showUserOptions: boolean = false
 
