@@ -3,7 +3,7 @@ import {PlaybackState} from '../../spotify/interfaces/playback-state'
 import {PlayerService} from "../../spotify/player/player.service";
 import {AuthService} from "../../shared/auth.service";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
-import {interval, timer} from "rxjs";
+import {timer} from "rxjs";
 
 @Component({
   selector: 'app-player',
@@ -20,6 +20,7 @@ import {interval, timer} from "rxjs";
 })
 export class PlayerComponent {
   playbackState: PlaybackState | null = null
+  imageDummyHeight: string | null = null
 
   constructor(
     private playerS: PlayerService,
@@ -28,13 +29,22 @@ export class PlayerComponent {
     this.auth.tokenAvailable$.subscribe((response) => {
       if (response) {
         this.getPlaybackState()
+      } else {
+        this.playbackState = null
+        this.imageDummyHeight = getComputedStyle(document.getElementById('album-image-dummy')!).width ?? null
       }
     })
     if (this.auth.getTokenAvailable()) {
       this.getPlaybackState()
     }
+
     timer(0, 1000).subscribe(() => {
-      if (this.playbackState?.is_playing) this.playbackState.progress_ms += 1000
+      if (this.playbackState) {
+        if (this.playbackState.is_playing) this.playbackState.progress_ms += 1000
+      } else {
+        this.imageDummyHeight = getComputedStyle(document.getElementById('album-image-dummy')!).width ?? null
+      }
+
     })
   }
 
@@ -42,6 +52,8 @@ export class PlayerComponent {
     this.playerS.getPlaybackState().subscribe((response) => {
       if (response) {
         this.playbackState = response
+      } else {
+        this.imageDummyHeight = getComputedStyle(document.getElementById('album-image-dummy')!).width ?? null
       }
     })
   }

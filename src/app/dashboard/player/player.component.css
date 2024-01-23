@@ -13,6 +13,7 @@
 .track {
   display: grid;
   grid-template-columns: 20% 80%;
+  grid-template-rows: auto;
 }
 
 .track-info {
@@ -72,4 +73,10 @@ h2 {
   background-color: var(--spotify-green);
   border-radius: 1px;
   transition: width 1s linear;
+}
+
+.album-image.dummy {
+  background-image: linear-gradient(to top, #141414, var(--spotify-background-dropdown-dark));
+  display: block;
+  transition: height 1s linear;
 }
