@@ -4,6 +4,7 @@ export interface Disallows {
   resuming: boolean | null
   seeking: boolean | null
   skipping_prev: boolean | null
+  skipping_next: boolean | null
   toggling_repeat_context: boolean | null
   toggling_shuffle: boolean | null
   toggling_repeat_track: boolean | null

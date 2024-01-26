@@ -1,28 +1,96 @@
 import {Injectable} from '@angular/core';
 import {AuthService} from "../../shared/auth.service";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {PlaybackState} from "../interfaces/playback-state";
-import {catchError, Observable, of, switchMap, timer} from "rxjs";
+import {Observable, switchMap, timer} from "rxjs";
+import {Device} from "../interfaces/device";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
-  private baseUrl = 'https://api.spotify.com/v1'
+  private baseUrl = 'https://api.spotify.com/v1/me/player'
 
   constructor(private auth: AuthService, private http: HttpClient) {
   }
 
+  pollPlaybackState(): Observable<PlaybackState> {
+    this.auth.refreshToken()
+    return timer(0, 3000).pipe(switchMap(() => {
+      return this.getPlaybackState()
+    }))
+  }
+
   getPlaybackState(): Observable<PlaybackState> {
     this.auth.refreshToken()
-    return timer(0, 5000).pipe(switchMap(() => {
-      return this.http.get<PlaybackState>(`${this.baseUrl}/me/player`, {
-        headers: new HttpHeaders({
-          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-        })
-      }).pipe(catchError(() => {
-        return of()
-      }))
-    }))
+    return this.http.get<PlaybackState>(`${this.baseUrl}`, {
+      headers: this.auth.getAuthHeader()
+    })
+  }
+
+  resumePlayBack(uri?: string, action?: () => {}) {
+    this.auth.refreshToken()
+    const body = uri ? {
+      uris: [uri]
+    } : null
+    this.http.put<string>(`${this.baseUrl}/play`, body, {
+      headers: this.auth.getAuthHeader()
+    }).subscribe()
+  }
+
+  getAvailableDevices(): Observable<{ devices: Device[] }> {
+    this.auth.refreshToken()
+    return this.http.get<{ devices: Device[] }>(`${this.baseUrl}/devices`, {
+      headers: this.auth.getAuthHeader()
+    })
+  }
+
+  transferPlayback(device_id: string, play?: boolean) {
+    this.auth.refreshToken()
+    const body = {
+      device_ids: [device_id],
+      play: play
+    }
+    this.http.put<string>(`${this.baseUrl}`, body, {
+      headers: this.auth.getAuthHeader()
+    }).subscribe()
+  }
+
+  pausePlayback(device_id?: string) {
+    this.auth.refreshToken()
+    const body = {
+      device_id: device_id
+    }
+    this.http.put<string>(`${this.baseUrl}/pause`, body, {
+      headers: this.auth.getAuthHeader()
+    }).subscribe()
+  }
+
+  setShuffleState(state: boolean, device_id?: string) {
+    this.auth.refreshToken()
+    this.http.put<string>(`${this.baseUrl}/shuffle?state=${state}${device_id ? `&device_id=${device_id}` : ''}`, null, {
+      headers: this.auth.getAuthHeader()
+    }).subscribe()
+  }
+
+  setRepeatMode(state: 'track' | 'context' | 'off', device_id?: string) {
+    this.auth.refreshToken()
+    this.http.put<string>(`${this.baseUrl}/repeat?state=${state}${device_id ? `&device_id=${device_id}` : ''}`, null, {
+      headers: this.auth.getAuthHeader()
+    }).subscribe()
+  }
+
+  skipPrevious(device_id?: string) {
+    this.auth.refreshToken()
+    this.http.post<string>(`${this.baseUrl}/previous${device_id ? `?device_id=${device_id}` : ''}`, null, {
+      headers: this.auth.getAuthHeader()
+    }).subscribe()
+  }
+
+  skipNext(device_id?: string) {
+    this.auth.refreshToken()
+    this.http.post<string>(`${this.baseUrl}/next${device_id ? `?device_id=${device_id}` : ''}`, null, {
+      headers: this.auth.getAuthHeader()
+    }).subscribe()
   }
 }

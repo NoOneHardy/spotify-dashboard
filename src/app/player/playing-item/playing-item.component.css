@@ -1,0 +1,41 @@
+.item {
+  display: grid;
+  grid-template-columns: 145px auto;
+}
+
+.item-image {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 5px;
+  height: 145px;
+}
+
+.item-image.dummy {
+  background-image: linear-gradient(to bottom right, #121212, var(--spotify-background-dropdown-dark), #121212);
+}
+
+.info {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.name {
+  height: fit-content;
+  font-size: 1.75rem;
+}
+
+.artists {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 5px;
+  color: #ffffffb6
+}
+
+.artist {
+  display: block;
+  white-space: nowrap;
+  padding-right: 1rch;
+}

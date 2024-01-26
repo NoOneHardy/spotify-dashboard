@@ -1,0 +1,20 @@
+<div class="player">
+  <app-playing-item
+    [item]="playbackState?.item"
+  ></app-playing-item>
+  <app-actions
+    [disallows]="playbackState?.actions?.disallows"
+    [shuffle_state]="playbackState?.shuffle_state"
+    [repeatState]="playbackState?.repeat_state"
+    (resume)="resumePlayback()"
+    (pause)="pausePlayback()"
+    (toggleShuffle)="toggleShuffle($event)"
+    (toggleRepeat)="toggleRepeat($event)"
+    (skipPrevious)="skipPrevious()"
+    (skipNext)="skipNext()"
+  ></app-actions>
+  <app-progress-indicator
+    [progress]="playbackState?.progress_ms"
+    [duration]="playbackState?.item?.duration_ms ?? null"
+  ></app-progress-indicator>
+</div>

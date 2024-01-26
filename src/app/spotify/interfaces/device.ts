@@ -1,5 +1,5 @@
 export interface Device {
-  id: string | null
+  id: string
   is_active: boolean
   is_private_session: boolean
   is_restricted: boolean

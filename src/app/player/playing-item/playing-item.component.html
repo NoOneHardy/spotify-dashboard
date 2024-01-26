@@ -1,0 +1,29 @@
+<div class="item" *ngIf="item">
+      <img priority="true"
+           [ngSrc]="item.album.images[0].url"
+           [alt]="item.name"
+           [height]="item.album.images[0].height"
+           [width]="item.album.images[0].width"
+           class="item-image album-image">
+  <div class="info">
+    <h2 class="name">{{ item.name }}</h2>
+      <div class="artists">
+        <div class="artist" *ngFor="let artist of item.artists">
+          <span class="artist-name">{{artist.name}}</span>
+          <span class="artist-separator"
+                *ngIf="artist.id != item.artists[(item.artists.length - 1) > 4 ? 4 : item.artists.length - 1].id">,</span>
+        </div>
+      </div>
+  </div>
+</div>
+<div class="item dummy" *ngIf="!item">
+  <div
+    class="item-image dummy"
+  ></div>
+  <div class="info">
+    <h2 class="name dummy">Keine Musik gefunden</h2>
+    <div class="artists">
+      <div class="artist dummy">H&ouml;ren Sie Musik um Informationen anzusehen</div>
+    </div>
+  </div>
+</div>

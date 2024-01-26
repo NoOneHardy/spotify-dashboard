@@ -16,7 +16,8 @@ export class AuthService {
   private readonly scopes = [
     'user-read-private',
     'user-read-email',
-    'user-read-playback-state'
+    'user-read-playback-state',
+    'user-modify-playback-state'
   ]
 
   private readonly authUrl: string
@@ -29,7 +30,7 @@ export class AuthService {
     return this.authUrl
   }
 
-  getAccessToken(code: string) {
+  getNewAccessToken(code: string) {
     const url: string = 'https://accounts.spotify.com/api/token'
     const base64 = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)
     const headers = new HttpHeaders({
@@ -109,5 +110,15 @@ export class AuthService {
 
   getTokenAvailable() {
     return this.tokenAvailable
+  }
+
+  getAccessToken() {
+    return sessionStorage.getItem('token')
+  }
+
+  getAuthHeader(): HttpHeaders {
+    return new HttpHeaders({
+      Authorization: `Bearer ${this.getAccessToken()}`
+    })
   }
 }

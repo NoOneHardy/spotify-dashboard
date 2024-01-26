@@ -16,7 +16,7 @@ export class AppComponent {
     this.activatedRoute.queryParams.subscribe((query) => {
       if (query['code'] !== undefined) {
           const code = query['code']
-          this.auth.getAccessToken(code)
+          this.auth.getNewAccessToken(code)
       }
     })
   }

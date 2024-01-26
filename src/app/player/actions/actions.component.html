@@ -1,0 +1,37 @@
+<div class="actions">
+  <button class="action" id="shuffle"
+          [ngClass]="[shuffle_state ? 'active' : '', disallows?.toggling_shuffle ? 'disabled' : '']"
+          (click)="onToggleShuffle()"
+          [disabled]="disallows?.toggling_shuffle">
+    <span class="material-icons">shuffle</span>
+  </button>
+  <button class="action" id="skip_previous"
+          (click)="onSkipPrevious()"
+          [ngClass]="[disallows?.skipping_prev ? 'disabled' : '']"
+          [disabled]="disallows?.skipping_prev">
+    <span class="material-icons">skip_previous</span>
+  </button>
+  <button class="action" id="pause"
+          (click)="onPause()"
+          *ngIf="!disallows?.pausing && disallows">
+    <span class="material-icons">pause</span>
+  </button>
+  <button class="action" id="play_arrow"
+          (click)="onResume()"
+          *ngIf="!disallows?.resuming">
+    <span class="material-icons">play_arrow</span>
+  </button>
+  <button class="action" id="skip_next"
+          (click)="onSkipNext()"
+          [ngClass]="[disallows?.skipping_next ? 'disabled' : '']"
+          [disabled]="disallows?.skipping_next">
+    <span class="material-icons">skip_next</span>
+  </button>
+  <button class="action" id="repeat"
+          (click)="onToggleRepeat()"
+          [disabled]="disallows?.toggling_repeat_track && disallows?.toggling_repeat_context"
+          [ngClass]="[repeatState === 'track' || repeatState === 'context' ? 'active' : '', (disallows?.toggling_repeat_track || disallows?.toggling_repeat_context) ? 'disabled' : '']">
+    <span *ngIf="repeatState === 'context' || repeatState === 'off'" class="material-icons">repeat</span>
+    <span *ngIf="repeatState === 'track'" class="material-icons">repeat_one</span>
+  </button>
+</div>

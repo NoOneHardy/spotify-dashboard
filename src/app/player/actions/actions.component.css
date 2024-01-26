@@ -1,0 +1,42 @@
+.actions {
+  padding-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.75cm;
+}
+
+.action {
+  height: fit-content;
+  width: fit-content;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0 0 10px black;
+  border: none;
+  background-color: transparent;
+  color: #ffffffb6;
+  cursor: pointer;
+}
+
+#play_arrow, #pause {
+  width: 1cm;
+  height: 1cm;
+  background-color: var(--spotify-text-dark);
+  color: #000;
+  text-shadow: none;
+}
+
+.action .material-icons {
+  font-size: 1.5rem;
+}
+
+.action.active {
+  color: var(--spotify-green);
+}
+
+.action.disabled {
+  color: var(--spotify-background-dropdown-dark);
+}
