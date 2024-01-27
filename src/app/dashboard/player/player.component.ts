@@ -57,19 +57,23 @@ export class PlayerComponent {
 
   pollPlaybackState() {
     this.playerS.pollPlaybackState().subscribe((response) => {
-      if (response?.item) {
-        this.playerS.getAvailableDevices().subscribe((availableDevices) => {
-          const devices = availableDevices.devices
-          devices.map((device) => {
-            if (device.id == response.device.id && device.is_active) this.playbackState = response
-            else this.playbackState = null
+        if (response?.item) {
+          this.playerS.getAvailableDevices().subscribe((availableDevices) => {
+            const devices = availableDevices.devices
+            for (let device of devices) {
+              if (device.id == response.device.id) {
+                this.playbackState = response
+                break;
+              } else {
+                this.playbackState = null
+              }
+            }
           })
-        })
-      } else {
-        this.playbackState = null
+        }
       }
-    })
+    )
   }
+
 
   getPlaybackState() {
     const sub = this.playerS.getPlaybackState().subscribe((response) => {
@@ -108,14 +112,20 @@ export class PlayerComponent {
     }
   }
 
-  toggleShuffle(state: boolean) {
+  toggleShuffle(state
+                  :
+                  boolean
+  ) {
     this.playerS.setShuffleState(state)
     if (this.playbackState) {
       this.playbackState.shuffle_state = state;
     }
   }
 
-  toggleRepeat(state: 'track' | 'context' | 'off') {
+  toggleRepeat(state
+                 :
+                 'track' | 'context' | 'off'
+  ) {
     this.playerS.setRepeatMode(state)
     if (this.playbackState) {
       this.playbackState.repeat_state = state;

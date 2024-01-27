@@ -17,6 +17,6 @@ export class DeviceComponent {
   @Output() changeDevice = new EventEmitter<string>()
 
   onChangeDevice() {
-    this.changeDevice.emit(this.device?.id)
+    if (!this.device?.is_active) this.changeDevice.emit(this.device?.id)
   }
 }

@@ -3,14 +3,15 @@ import {Device} from "../../spotify/interfaces/device";
 import {PlayerService} from "../../spotify/player/player.service";
 import {AuthService} from "../../shared/auth.service";
 import {DeviceComponent} from "./device/device.component";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-device-manager',
   standalone: true,
   imports: [
     DeviceComponent,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './device-manager.component.html',
   styleUrl: './device-manager.component.css'

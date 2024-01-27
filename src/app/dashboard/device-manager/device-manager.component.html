@@ -1,5 +1,10 @@
 <div class="device-manager">
+  <ng-container *ngIf="availableDevices.length > 0">
   <app-device *ngFor="let device of availableDevices"
               (changeDevice)="changeDevice($event)"
               [device]="device"></app-device>
+  </ng-container>
+  <div class="no-devices" *ngIf="availableDevices.length == 0">
+    Keine Geräte verfügbar
+  </div>
 </div>
