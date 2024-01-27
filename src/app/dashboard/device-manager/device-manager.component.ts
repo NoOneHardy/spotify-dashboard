@@ -36,7 +36,7 @@ export class DeviceManagerComponent {
 
   getAvailableDevices() {
     this.playerService.getAvailableDevices().subscribe((availableDevices) => {
-      if (availableDevices.devices) {
+      if (availableDevices?.devices) {
         this.availableDevices = availableDevices.devices
       }
     })

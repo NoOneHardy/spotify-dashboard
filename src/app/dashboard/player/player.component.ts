@@ -57,13 +57,16 @@ export class PlayerComponent {
 
   pollPlaybackState() {
     this.playerS.pollPlaybackState().subscribe((response) => {
-      if (response) {
+      if (response?.item) {
         this.playerS.getAvailableDevices().subscribe((availableDevices) => {
           const devices = availableDevices.devices
           devices.map((device) => {
-            if (device.id == response.device.id) this.playbackState = response
+            if (device.id == response.device.id && device.is_active) this.playbackState = response
+            else this.playbackState = null
           })
         })
+      } else {
+        this.playbackState = null
       }
     })
   }
