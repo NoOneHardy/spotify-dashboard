@@ -45,6 +45,13 @@ export class PlayerService {
     })
   }
 
+  pollAvailableDevices(): Observable<{ devices: Device[] }> {
+    this.auth.refreshToken()
+    return timer(0, 10000).pipe(switchMap(() => {
+      return this.getAvailableDevices()
+    }))
+  }
+
   transferPlayback(device_id: string, play?: boolean) {
     this.auth.refreshToken()
     const body = {

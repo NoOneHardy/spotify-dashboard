@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Disallows} from "../../spotify/interfaces/helper/disallows";
+import {Disallows} from "../../../spotify/interfaces/helper/disallows";
 import {NgClass, NgIf} from "@angular/common";
 
 @Component({

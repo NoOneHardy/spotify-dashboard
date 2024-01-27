@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
-import {Track} from "../../spotify/interfaces/track";
+import {Track} from "../../../spotify/interfaces/track";
 
 @Component({
   selector: 'app-playing-item',

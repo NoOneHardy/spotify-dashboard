@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
-import {PlayerComponent} from "../player/player.component";
+import {PlayerComponent} from "./player/player.component";
 import {AuthService} from "../shared/auth.service";
 import {NgIf} from "@angular/common";
+import {DeviceManagerComponent} from "./device-manager/device-manager.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
+    NgIf,
     PlayerComponent,
-    NgIf
+    DeviceManagerComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

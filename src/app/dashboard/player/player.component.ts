@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
-import {PlaybackState} from '../spotify/interfaces/playback-state'
-import {PlayerService} from "../spotify/player/player.service";
-import {AuthService} from "../shared/auth.service";
+import {PlaybackState} from "../../spotify/interfaces/playback-state";
+import {PlayerService} from "../../spotify/player/player.service";
+import {AuthService} from "../../shared/auth.service";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
 import {timer} from "rxjs";
 import {PlayingItemComponent} from "./playing-item/playing-item.component";
 import {ProgressIndicatorComponent} from "./progress-indicator/progress-indicator.component";
 import {ActionsComponent} from "./actions/actions.component";
-import {Device} from "../spotify/interfaces/device";
+import {Device} from "../../spotify/interfaces/device";
 
 @Component({
   selector: 'app-player',
@@ -58,7 +58,12 @@ export class PlayerComponent {
   pollPlaybackState() {
     this.playerS.pollPlaybackState().subscribe((response) => {
       if (response) {
-        this.playbackState = response
+        this.playerS.getAvailableDevices().subscribe((availableDevices) => {
+          const devices = availableDevices.devices
+          devices.map((device) => {
+            if (device.id == response.device.id) this.playbackState = response
+          })
+        })
       }
     })
   }

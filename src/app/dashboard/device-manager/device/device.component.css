@@ -1,0 +1,32 @@
+.device {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  margin-bottom: 10px;
+  height: 50px;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.device.active {
+  color: var(--spotify-green)
+}
+
+.device>.material-icons-outlined {
+  font-size: 30px;
+}
+
+.name {
+  font-size: 1.3rem;
+}
+
+.volume {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.volume .material-icons-outlined {
+  font-size: 0.8rem;
+}

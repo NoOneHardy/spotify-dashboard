@@ -1,0 +1,5 @@
+<div class="device-manager">
+  <app-device *ngFor="let device of availableDevices"
+              (changeDevice)="changeDevice($event)"
+              [device]="device"></app-device>
+</div>
