@@ -15,6 +15,7 @@
   ></app-actions>
   <app-progress-indicator
     [progress]="playbackState?.progress_ms"
-    [duration]="playbackState?.item?.duration_ms ?? null"
+    [duration]="playbackState?.item?.duration_ms"
+    (goToPosition)="resumePlayback(undefined, $event)"
   ></app-progress-indicator>
 </div>
