@@ -84,14 +84,14 @@ export class PlayerComponent {
     })
   }
 
-  resumePlayback() {
+  resumePlayback(uri = this.playbackState?.item?.uri, position?: number) {
     let availableDevice: Device | undefined
     this.playerS.getAvailableDevices().subscribe((response) => {
       if (response.devices.length > 0) {
         availableDevice = response.devices[0]
         if (availableDevice) {
           if (this.playbackState) {
-            this.playerS.resumePlayBack()
+            this.playerS.resumePlayBack(uri, position)
             this.playbackState.is_playing = true
             this.playbackState.actions.disallows.pausing = false
             this.playbackState.actions.disallows.resuming = true

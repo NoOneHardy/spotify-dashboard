@@ -8,18 +8,6 @@
   column-gap: 10px;
 }
 
-.duration-bar {
-  display: block;
+app-slider-input {
   width: 80%;
-  height: 2px;
-  background-color: var(--spotify-background-dropdown-dark);
-  border-radius: 1px;
-}
-
-.progress-bar {
-  display: block;
-  height: 2px;
-  background-color: var(--spotify-green);
-  border-radius: 1px;
-  transition: width 1s linear;
 }

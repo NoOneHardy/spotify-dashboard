@@ -28,11 +28,17 @@ export class PlayerService {
     })
   }
 
-  resumePlayBack(uri?: string, action?: () => {}) {
+  resumePlayBack(uri?: string, position?: number) {
     this.auth.refreshToken()
-    const body = uri ? {
-      uris: [uri]
-    } : null
+    const body: {uris?: string[], position_ms?: number} = {}
+    if (uri || position) {
+      if (uri) {
+        body.uris = [uri]
+      }
+      if (position) {
+        body.position_ms = position
+      }
+    }
     this.http.put<string>(`${this.baseUrl}/play`, body, {
       headers: this.auth.getAuthHeader()
     }).subscribe()

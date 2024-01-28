@@ -1,0 +1,14 @@
+<div class="slider">
+  <div class="progress"
+       [ngStyle]="{
+      width: 100 / (max ? max : 1) * (max && progress ? progress : 0) + '%'
+      }"
+  ></div>
+  <input
+    [value]="progress"
+    [min]="min"
+    [max]="max"
+    (change)="valueChange(input.value)"
+    #input
+    type="range">
+</div>

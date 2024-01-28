@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {DatePipe, NgIf, NgStyle} from "@angular/common";
+import {SliderInputComponent} from "../../../spotify/components/slider-input/slider-input.component";
 
 @Component({
   selector: 'app-progress-indicator',
@@ -7,12 +8,18 @@ import {DatePipe, NgIf, NgStyle} from "@angular/common";
   imports: [
     DatePipe,
     NgIf,
-    NgStyle
+    NgStyle,
+    SliderInputComponent
   ],
   templateUrl: './progress-indicator.component.html',
   styleUrl: './progress-indicator.component.css'
 })
 export class ProgressIndicatorComponent {
-  @Input() progress: number | undefined | null
-  @Input() duration: number | undefined | null
+  @Input() progress: number | undefined
+  @Input() duration: number | undefined
+  @Output() goToPosition = new EventEmitter<number>()
+
+  onGoToPosition(position: number) {
+    this.goToPosition.emit(position)
+  }
 }
