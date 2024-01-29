@@ -16,9 +16,7 @@ export class UserService {
   getCurrentUser() {
     this.auth.refreshToken()
     return this.http.get<User>(this.baseUrl, {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-      })
+      headers: this.auth.getAuthHeader()
     })
   }
 

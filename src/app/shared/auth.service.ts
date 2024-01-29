@@ -9,7 +9,9 @@ import {Subject} from "rxjs";
 })
 export class AuthService {
   public readonly tokenAvailable$: Subject<boolean> = new Subject<boolean>();
-  private tokenAvailable: boolean = sessionStorage.getItem('token') !== null
+  private static token: string | null = null
+  private static refreshToken: string | null = null
+  private static tokenValid: Date | null = null
 
   private readonly redirectUrlAuth: string = 'http://localhost:4200'
   private readonly redirectUrlToken: string = 'http://localhost:4200'
@@ -54,24 +56,24 @@ export class AuthService {
     }>(url, form, {
       headers: headers
     }).subscribe((response) => {
-      sessionStorage.setItem('refreshToken', response.refresh_token)
-      sessionStorage.setItem('token', response.access_token)
-      let now = new Date()
-      now.setMinutes(now.getMinutes() + 59)
-      sessionStorage.setItem('valid', now.toISOString())
+      let duration = new Date()
+      duration.setMinutes(duration.getMinutes() + 59)
+
+      AuthService.refreshToken = response.refresh_token
+      AuthService.token = response.access_token
+      AuthService.tokenValid = duration
+
       this.router.navigateByUrl('').then()
       this.tokenAvailable$.next(true)
-      this.tokenAvailable = true
       localStorage.removeItem('state')
     })
   }
 
   refreshToken() {
-    if ((new Date(sessionStorage.getItem('valid')!)) > new Date()) {
+    if (AuthService.tokenValid && AuthService.tokenValid > new Date()) {
       return
     }
-    const refreshToken = sessionStorage.getItem('refreshToken')
-    if (refreshToken == null) {
+    if (AuthService.refreshToken == null) {
       console.log('No token provided please log in again')
       return
     }
@@ -82,7 +84,7 @@ export class AuthService {
     })
     const form = new HttpParams({
       fromObject: {
-        refresh_token: refreshToken,
+        refresh_token: AuthService.refreshToken,
         grant_type: 'refresh_token'
       }
     })
@@ -94,31 +96,35 @@ export class AuthService {
     }>('https://accounts.spotify.com/api/token', form, {
       headers: headers
     }).subscribe((response) => {
-      sessionStorage.setItem('token', response.access_token)
-      let now = new Date()
-      now.setMinutes(now.getMinutes() + 59)
-      sessionStorage.setItem('valid', now.toISOString())
+      const duration = new Date()
+      duration.setMinutes(duration.getMinutes() + 59)
+
+      AuthService.token = response.access_token
+      AuthService.tokenValid = duration
     })
   }
 
   logout() {
-    sessionStorage.removeItem('token')
-    sessionStorage.removeItem('refreshToken')
+    AuthService.tokenValid = null
+    AuthService.token = null
+    AuthService.refreshToken = null
     this.tokenAvailable$.next(false)
-    this.tokenAvailable = false
   }
 
-  getTokenAvailable() {
-    return this.tokenAvailable
+  getTokenAvailable(): boolean {
+    return AuthService.token !== null
   }
 
   getAccessToken() {
-    return sessionStorage.getItem('token')
+    return AuthService.token
   }
 
   getAuthHeader(): HttpHeaders {
-    return new HttpHeaders({
-      Authorization: `Bearer ${this.getAccessToken()}`
-    })
+    if (this.getTokenAvailable()) {
+      return new HttpHeaders({
+        Authorization: `Bearer ${this.getAccessToken()}`
+      })
+    }
+    return new HttpHeaders()
   }
 }
