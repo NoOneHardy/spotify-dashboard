@@ -1,4 +1,10 @@
 <div *ngIf="tokenAvailable" class="dashboard">
-  <app-device-manager></app-device-manager>
-  <app-player></app-player>
+  <app-device-manager
+    [availableDevices]="availableDevices"
+  ></app-device-manager>
+  <app-player
+    [playbackState]="playbackState"
+    [availableDevices]="availableDevices"
+    (trackFinished)="getPlaybackState()"
+  ></app-player>
 </div>

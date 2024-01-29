@@ -53,7 +53,7 @@ export class PlayerService {
 
   pollAvailableDevices(): Observable<{ devices: Device[] }> {
     this.auth.refreshToken()
-    return timer(0, 10000).pipe(switchMap(() => {
+    return timer(0, 6000).pipe(switchMap(() => {
       return this.getAvailableDevices()
     }))
   }

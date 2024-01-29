@@ -1,6 +1,6 @@
 .dashboard {
   display: grid;
-  grid-template-columns: 27.5% 45% 27.5%;
+  grid-template-columns: 27.5% calc(45% - 2 * 20px) 27.5%;
   gap: 20px;
   padding: 0 30px;
 }
