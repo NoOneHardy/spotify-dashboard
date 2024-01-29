@@ -5,7 +5,34 @@
   height: 300px;
   background-color: var(--spotify-background-base-dark);
   padding: 15px;
+  position: relative;
   border-radius: 25px;
-  box-shadow: 2px 2px 15px black;
+}
+
+.item-background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-position: center;
+  border-radius: 25px;
+  background-size: cover;
+}
+
+.item-background-shadow {
+  position: absolute;
+  height: calc(100% + 10px);
+  width: calc(100% + 10px);
+  top: -5px;
+  left: -5px;
+  background-position: center;
+  border-radius: 25px;
+  filter: blur(50px);
+  opacity: 0.7;
+  background-size: cover;
+}
+
+:host {
   position: relative;
 }

@@ -1,3 +1,11 @@
+<div class="item-background-shadow"
+     *ngIf="playbackState && playbackState.item && playbackState.item.album"
+     [style]="'background-image: url(' + playbackState.item.album.images[0].url + ')'"
+></div>
+<div class="item-background"
+     *ngIf="playbackState && playbackState.item && playbackState.item.album"
+     [style]="'background-image: url(' + playbackState.item.album.images[0].url + ')'"
+></div>
 <div class="player">
   <app-playing-item
     [item]="playbackState?.item"

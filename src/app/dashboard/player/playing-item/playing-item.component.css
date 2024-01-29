@@ -1,20 +1,9 @@
 .item {
-  display: grid;
-  grid-template-columns: 145px auto;
-}
-
-.item-image {
-  width: 100%;
-  object-fit: contain;
-  border-radius: 5px;
   height: 145px;
 }
 
-.item-image.dummy {
-  background-image: linear-gradient(to bottom right, #121212, var(--spotify-background-dropdown-dark), #121212);
-}
-
 .info {
+  padding-top: 20px;
   padding-left: 20px;
   display: flex;
   flex-direction: column;

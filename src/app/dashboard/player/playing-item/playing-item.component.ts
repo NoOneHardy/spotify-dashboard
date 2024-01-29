@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {NgForOf, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
 import {Track} from "../../../spotify/interfaces/track";
 
 @Component({
@@ -8,7 +8,8 @@ import {Track} from "../../../spotify/interfaces/track";
   imports: [
     NgOptimizedImage,
     NgIf,
-    NgForOf
+    NgForOf,
+    NgStyle
   ],
   templateUrl: './playing-item.component.html',
   styleUrl: './playing-item.component.css'
