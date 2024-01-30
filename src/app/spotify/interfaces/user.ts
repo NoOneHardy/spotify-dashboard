@@ -1,6 +1,6 @@
 import {Image} from "./helper/image";
 import {ExternalUrls} from "./helper/external-urls";
-import {Followers} from "./followers"
+import {Followers} from "./helper/followers"
 import {ExplicitContent} from "./helper/explicit-content";
 
 export interface User {

@@ -3,7 +3,7 @@ import {LoginComponent} from "./login/login.component";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {AuthService} from "../shared/auth.service";
 import {Image} from "../spotify/interfaces/helper/image";
-import {UserService} from "../spotify/user/user.service";
+import {UserService} from "../spotify/services/user/user.service";
 import {User} from "../spotify/interfaces/user";
 
 @Component({

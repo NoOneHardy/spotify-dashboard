@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {PlaybackState} from "../../spotify/interfaces/playback-state";
-import {PlayerService} from "../../spotify/player/player.service";
+import {PlayerService} from "../../spotify/services/player/player.service";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
 import {timer} from "rxjs";
 import {PlayingItemComponent} from "./playing-item/playing-item.component";
@@ -42,18 +42,17 @@ export class PlayerComponent {
     })
   }
 
-  resumePlayback(uri = this.playbackState?.item?.uri, position?: number) {
+  resumePlayback(position?: number) {
     if (this.availableDevices.length > 0) {
       const device = this.availableDevices[0]
       if (this.playbackState) {
         if (!position) position = this.playbackState.progress_ms
-        this.playerS.resumePlayBack(uri, position)
+        this.playerS.resumePlayBack(position)
         this.playbackState.is_playing = true
         this.playbackState.actions.disallows.pausing = false
         this.playbackState.actions.disallows.resuming = true
       } else {
         this.playerS.transferPlayback(device.id, true)
-        console.log('aaa')
       }
     }
   }

@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Device} from "../../spotify/interfaces/device";
-import {PlayerService} from "../../spotify/player/player.service";
+import {PlayerService} from "../../spotify/services/player/player.service";
 import {DeviceComponent} from "./device/device.component";
 import {NgForOf, NgIf} from "@angular/common";
 

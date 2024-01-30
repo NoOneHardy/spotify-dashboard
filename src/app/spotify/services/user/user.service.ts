@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {AuthService} from "../../shared/auth.service";
+import {AuthService} from "../../../shared/auth.service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {User} from "../interfaces/user";
+import {User} from "../../interfaces/user";
 import {Observable, of} from "rxjs";
-import {TopItems} from "../interfaces/top-items";
+import {TopItems} from "../../interfaces/top-items";
 
 @Injectable({
   providedIn: 'root'

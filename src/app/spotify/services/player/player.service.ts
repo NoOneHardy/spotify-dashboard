@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {AuthService} from "../../shared/auth.service";
+import {AuthService} from "../../../shared/auth.service";
 import {HttpClient} from "@angular/common/http";
-import {PlaybackState} from "../interfaces/playback-state";
+import {PlaybackState} from "../../interfaces/playback-state";
 import {Observable, switchMap, timer} from "rxjs";
-import {Device} from "../interfaces/device";
+import {Device} from "../../interfaces/device";
 
 @Injectable({
   providedIn: 'root'
@@ -28,16 +28,13 @@ export class PlayerService {
     })
   }
 
-  resumePlayBack(uri?: string, position?: number) {
+  resumePlayBack(position: number) {
     this.auth.refreshToken()
-    const body: {uris?: string[], position_ms?: number} = {}
-    if (uri || position) {
-      if (uri) {
-        body.uris = [uri]
-      }
-      if (position) {
-        body.position_ms = position
-      }
+    const body: {
+      position_ms?: number
+    } = {}
+    if (position) {
+      body.position_ms = position
     }
     this.http.put<string>(`${this.baseUrl}/play`, body, {
       headers: this.auth.getAuthHeader()
