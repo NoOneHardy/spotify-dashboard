@@ -7,6 +7,7 @@ import {PlayingItemComponent} from "./playing-item/playing-item.component";
 import {ProgressIndicatorComponent} from "./progress-indicator/progress-indicator.component";
 import {ActionsComponent} from "./actions/actions.component";
 import {Device} from "../../spotify/interfaces/device";
+import {Context} from "../../spotify/interfaces/helper/context";
 
 @Component({
   selector: 'app-player',
@@ -86,5 +87,11 @@ export class PlayerComponent {
 
   skipNext() {
     this.playerS.skipNext()
+  }
+
+  setTrackProgress(progress_ms: number) {
+    if (this.playbackState?.item) {
+      this.playerS.setTrackProgress(this.playbackState.item.uri, progress_ms, this.playbackState?.context)
+    }
   }
 }

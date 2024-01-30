@@ -28,7 +28,7 @@
   left: -5px;
   background-position: center;
   border-radius: 25px;
-  filter: blur(50px);
+  filter: blur(11px);
   opacity: 0.7;
   background-size: cover;
 }

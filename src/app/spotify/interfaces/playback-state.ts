@@ -8,7 +8,7 @@ export interface PlaybackState {
   repeat_state: 'track' | 'context' | 'off'
   shuffle_state: boolean
   smart_shuffle: boolean
-  context: Context | null
+  context?: Context
   timestamp: number
   progress_ms: number
   is_playing: boolean
