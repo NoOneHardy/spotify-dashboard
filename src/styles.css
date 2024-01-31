@@ -26,7 +26,7 @@
   --spotify-background-dropdown-dark: #282828;
   --spotify-text-dark: #ffffffe6;
   --spotify-background-base-dark: #0000008a;
-  --spotify-background-padding-top: #21125f;
+  --spotify-background-padding-top: #333;
 }
 
 * {
@@ -37,7 +37,7 @@
 
 body {
   height: 100%;
-  background-image: linear-gradient(to top, #121212 60%, var(--spotify-background-padding-top))
+  background-image: linear-gradient(to top, #121212 50%, var(--spotify-background-padding-top))
 }
 
 html {min-height: 100%}
