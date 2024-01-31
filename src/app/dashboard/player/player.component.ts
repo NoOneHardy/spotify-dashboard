@@ -42,12 +42,13 @@ export class PlayerComponent {
     })
   }
 
-  resumePlayback(position?: number) {
+  resumePlayback() {
     if (this.availableDevices.length > 0) {
       const device = this.availableDevices[0]
       if (this.playbackState) {
-        if (!position) position = this.playbackState.progress_ms
-        this.playerS.resumePlayBack(position)
+        if (this.playbackState && this.playbackState.item) {
+          this.playerS.resumePlayBack(this.playbackState.item.uri, this.playbackState.context, this.playbackState.progress_ms)
+        }
         this.playbackState.is_playing = true
         this.playbackState.actions.disallows.pausing = false
         this.playbackState.actions.disallows.resuming = true
@@ -90,7 +91,7 @@ export class PlayerComponent {
 
   setTrackProgress(progress_ms: number) {
     if (this.playbackState && this.playbackState.item) {
-      this.playerS.setTrackProgress(this.playbackState.item.uri, progress_ms, this.playbackState.context)
+      this.playerS.resumePlayBack(this.playbackState.item.uri, this.playbackState.context, progress_ms)
     }
   }
 }
