@@ -63,7 +63,7 @@ export class DashboardComponent {
       for (let device of this.availableDevices) {
         if (device.id == playbackState.device.id) {
           this.playbackState = playbackState
-          break;
+          break
         } else {
           this.playbackState = null
         }

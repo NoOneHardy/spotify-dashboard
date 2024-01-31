@@ -32,7 +32,11 @@ input::-webkit-slider-thumb {
   border-radius: 5px;
 }
 
-input:hover::-webkit-slider-thumb {
+input:not(:disabled):hover {
+  cursor: pointer;
+}
+
+input:not(:disabled):hover::-webkit-slider-thumb {
   background-color: var(--spotify-text-dark);
   box-shadow: 0 0 15px #000;
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AuthService} from "../../../shared/auth.service";
 import {HttpClient} from "@angular/common/http";
 import {PlaybackState} from "../../interfaces/playback-state";
-import {Observable, switchMap, timer} from "rxjs";
+import {Observable, Subject, switchMap, timer} from "rxjs";
 import {Device} from "../../interfaces/device";
 import {Context} from "../../interfaces/helper/context";
 import {AlbumService} from "../album/album.service";
@@ -11,6 +11,7 @@ import {PlayerPlayRequestBody} from "../../interfaces/http-bodies/player-play";
 import {Queue} from "../../interfaces/queue"
 import {Track} from "../../interfaces/track";
 import {Episode} from "../../interfaces/episode";
+import {UserService} from "../user/user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class PlayerService {
   constructor(
     private albumService: AlbumService,
     private playlistService: PlaylistService,
+    private userService: UserService,
     private auth: AuthService,
     private http: HttpClient
   ) {
@@ -128,10 +130,9 @@ export class PlayerService {
     })
   }
 
-  setTrackProgress(uri: string, progress_ms: number, context?: Context,): void {
+  setTrackProgress(uri: string, progress_ms: number, context?: Context): void {
     this.auth.refreshToken()
     let position = 0
-
     const body: PlayerPlayRequestBody = {
       uris: undefined,
       context_uri: context?.uri,
@@ -159,27 +160,75 @@ export class PlayerService {
       })
     }
 
+    const limit = 50
     if (context) {
+      const id = context.uri.split(':')[context.uri.split(':').length - 1]
       switch (context.type) {
         case 'artist':
-          console.log('ARTIST')
           useQueueAsContext()
           return
         case 'album':
-          console.log('ALBUM')
-          this.albumService.getAlbumTracks(context.uri.split(':')[context.uri.split(':').length - 1]).subscribe((tracks) => {
+          this.albumService.getAlbumTracks(id).subscribe((tracks) => {
             for (let track of tracks.items) {
               if (track.uri === uri) {
-                body.offset = tracks.items.indexOf(track) >= 0 ? { position: tracks.items.indexOf(track) } : body.offset
+                body.offset = tracks.items.indexOf(track) >= 0 ? {position: tracks.items.indexOf(track)} : body.offset
+                setProgress()
               }
-              setProgress()
+            }
+          })
+          return
+        case 'playlist':
+          this.playlistService.getPlaylistTracks(id, limit).subscribe(tracksResponse => {
+            for (let i = 0; i < tracksResponse.total / 50; i++) {
+              if (i == 0) {
+                for (let track of tracksResponse.items) {
+                  if (track.track.uri === uri) {
+                    body.offset = {position: limit * i + tracksResponse.items.indexOf(track)}
+                    setProgress()
+                    return
+                  }
+                }
+              }
+              this.playlistService.getPlaylistTracks(id, limit, limit * i).subscribe(tracksResponseWithOffset => {
+                for (let track of tracksResponseWithOffset.items) {
+                  if (track.track.uri === uri) {
+                    body.offset = {position: limit * i + tracksResponseWithOffset.items.indexOf(track)}
+                    setProgress()
+                    return
+                  }
+                }
+              })
+            }
+          })
+          return
+        case 'collection':
+          this.userService.getUsersSavedTracks(limit).subscribe(savedTracksResponse => {
+            for (let i = 0; i < savedTracksResponse.total / 50; i++) {
+              if (i == 0) {
+                for (let track of savedTracksResponse.items) {
+                  if (track.track.uri === uri) {
+                    body.offset = {position:  limit * i + savedTracksResponse.items.indexOf(track)}
+                    setProgress()
+                    return
+                  }
+                }
+              }
+              this.userService.getUsersSavedTracks(limit, limit * i).subscribe(savedTracksResponseWithOffset => {
+                for (let track of savedTracksResponseWithOffset.items) {
+                  if (track.track.uri === uri) {
+                    body.offset = {position:  limit * i + savedTracksResponseWithOffset.items.indexOf(track)}
+                    setProgress()
+                    return
+                  }
+                }
+              })
             }
           })
           return
       }
     }
-    console.log('DEFAULT')
     useQueueAsContext()
+    return
   }
 
   getUserQueue(): Observable<Queue> {

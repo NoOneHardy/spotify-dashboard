@@ -31,7 +31,7 @@
           (click)="onToggleRepeat()"
           [disabled]="disallows?.toggling_repeat_track && disallows?.toggling_repeat_context"
           [ngClass]="[repeatState === 'track' || repeatState === 'context' ? 'active' : '', (disallows?.toggling_repeat_track || disallows?.toggling_repeat_context) ? 'disabled' : '']">
-    <span *ngIf="repeatState === 'context' || repeatState === 'off'" class="material-icons">repeat</span>
+    <span *ngIf="repeatState === 'context' || repeatState === 'off' || !repeatState" class="material-icons">repeat</span>
     <span *ngIf="repeatState === 'track'" class="material-icons">repeat_one</span>
   </button>
 </div>

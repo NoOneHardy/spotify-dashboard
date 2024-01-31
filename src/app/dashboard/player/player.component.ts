@@ -7,7 +7,6 @@ import {PlayingItemComponent} from "./playing-item/playing-item.component";
 import {ProgressIndicatorComponent} from "./progress-indicator/progress-indicator.component";
 import {ActionsComponent} from "./actions/actions.component";
 import {Device} from "../../spotify/interfaces/device";
-import {Context} from "../../spotify/interfaces/helper/context";
 
 @Component({
   selector: 'app-player',
@@ -28,7 +27,7 @@ import {Context} from "../../spotify/interfaces/helper/context";
 export class PlayerComponent {
   @Input() playbackState: PlaybackState | null = null
   @Input() availableDevices: Device[] = []
-  @Output() trackFinished = new EventEmitter<void>()
+  @Output() refreshPlayback = new EventEmitter<void>()
 
   constructor(private playerS: PlayerService) {
     timer(0, 1000).subscribe(() => {
@@ -36,7 +35,7 @@ export class PlayerComponent {
         if (this.playbackState.is_playing && this.playbackState.item) {
           this.playbackState.progress_ms += 1000
           if (this.playbackState.progress_ms >= this.playbackState.item.duration_ms) {
-            this.trackFinished.emit()
+            this.refreshPlayback.emit()
           }
         }
       }
@@ -90,8 +89,8 @@ export class PlayerComponent {
   }
 
   setTrackProgress(progress_ms: number) {
-    if (this.playbackState?.item) {
-      this.playerS.setTrackProgress(this.playbackState.item.uri, progress_ms, this.playbackState?.context)
+    if (this.playbackState && this.playbackState.item) {
+      this.playerS.setTrackProgress(this.playbackState.item.uri, progress_ms, this.playbackState.context)
     }
   }
 }

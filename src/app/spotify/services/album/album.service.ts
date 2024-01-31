@@ -23,18 +23,8 @@ export class AlbumService {
 
   getAlbumTracks(id: string): Observable<AlbumTracks> {
     this.auth.refreshToken()
-    return this.http.get<AlbumTracks>(`${this.baseUrl}/${id}/tracks`, {
+    return this.http.get<AlbumTracks>(`${this.baseUrl}/${id}/tracks?limit=50`, {
       headers: this.auth.getAuthHeader()
-    }).pipe(
-      switchMap((tracks) => {
-        if (tracks.total <= 50) {
-          return this.http.get<AlbumTracks>(`${this.baseUrl}/${id}/tracks?limit=${tracks.total}`, {
-            headers: this.auth.getAuthHeader()
-          })
-        } else {
-          return of(tracks)
-        }
-      })
-    )
+    })
   }
 }
