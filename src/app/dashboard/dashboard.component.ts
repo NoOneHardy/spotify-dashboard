@@ -5,7 +5,7 @@ import {NgIf} from "@angular/common";
 import {DeviceManagerComponent} from "./device-manager/device-manager.component";
 import {PlaybackState} from "../spotify/interfaces/playback-state";
 import {Device} from "../spotify/interfaces/device";
-import {PlayerService} from "../spotify/player/player.service";
+import {PlayerService} from "../spotify/services/player/player.service";
 import {Subscription} from "rxjs";
 
 @Component({
@@ -63,7 +63,7 @@ export class DashboardComponent {
       for (let device of this.availableDevices) {
         if (device.id == playbackState.device.id) {
           this.playbackState = playbackState
-          break;
+          break
         } else {
           this.playbackState = null
         }

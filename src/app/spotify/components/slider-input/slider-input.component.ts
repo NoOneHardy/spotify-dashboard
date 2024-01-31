@@ -14,6 +14,7 @@ export class SliderInputComponent {
   @Input() progress: number | undefined = 100
   @Input() max: number | undefined = 100
   @Input() min = 0
+  @Input() disabled: boolean = false
   @Output() valueChanged = new EventEmitter<number>()
 
   valueChange(value: string) {

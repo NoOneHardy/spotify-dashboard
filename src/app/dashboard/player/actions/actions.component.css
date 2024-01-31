@@ -39,4 +39,5 @@
 
 .action.disabled {
   color: var(--spotify-background-dropdown-dark);
+  text-shadow: none;
 }

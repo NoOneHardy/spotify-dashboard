@@ -17,6 +17,7 @@ import {SliderInputComponent} from "../../../spotify/components/slider-input/sli
 export class ProgressIndicatorComponent {
   @Input() progress: number | undefined
   @Input() duration: number | undefined
+  @Input() disabled: boolean = false
   @Output() goToPosition = new EventEmitter<number>()
 
   onGoToPosition(position: number) {

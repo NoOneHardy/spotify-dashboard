@@ -3,6 +3,7 @@
   <app-slider-input
     (valueChanged)="onGoToPosition($event)"
     [max]="duration"
+    [disabled]="disabled"
     [progress]="progress">
   </app-slider-input>
   <div class="duration">{{ (duration ?? 0) | date:'m:ss' }}</div>
