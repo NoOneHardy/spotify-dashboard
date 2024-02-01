@@ -18,6 +18,9 @@ export class AuthService {
 
   private readonly redirectUrlAuth: string = 'http://localhost:4200'
   private readonly redirectUrlToken: string = 'http://localhost:4200'
+  // private readonly redirectUrlAuth: string = 'https://napatodi.myhostpoint.ch'
+  // private readonly redirectUrlToken: string = 'https://napatodi.myhostpoint.ch'
+
   private readonly scopes = [
     'user-read-private',
     'user-read-email',
