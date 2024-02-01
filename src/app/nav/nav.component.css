@@ -78,7 +78,16 @@ h2 {
   text-decoration: none;
 }
 
-.user-options .material-icons-outlined  {
+.user-options>span.stay-logged-in {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+}
+
+.user-options .material-icons-outlined, .user-options .material-icons  {
   font-size: 16px;
 }
 
