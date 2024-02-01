@@ -107,7 +107,7 @@ export abstract class PlayerUrls {
     return `${PlayerUrls.baseUrl}/repeat${params}`
   }
 
-  public static toggleShuffle(state: boolean, device_id?: string) {
+  public static toggleShuffle(state: boolean, device_id?: string): string {
     const params: string = BaseUrls.prepareParams([
       {
         name: 'state',
@@ -119,5 +119,19 @@ export abstract class PlayerUrls {
       }
     ])
     return `${PlayerUrls.baseUrl}/shuffle${params}`
+  }
+
+  public static setPlaybackVolume(volume_percent: number, device_id?: string): string {
+    const params: string = BaseUrls.prepareParams([
+      {
+        name: 'volume_percent',
+        value: volume_percent
+      },
+      {
+        name: 'device_id',
+        value: device_id
+      }
+    ])
+    return `${PlayerUrls.baseUrl}/volume${params}`
   }
 }

@@ -2,6 +2,7 @@
   <ng-container *ngIf="availableDevices.length > 0">
   <app-device *ngFor="let device of availableDevices"
               (changeDevice)="changeDevice($event)"
+              (changeVolume)="setVolume($event.volume, $event.device_id)"
               [device]="device"></app-device>
   </ng-container>
   <div class="no-devices" *ngIf="availableDevices.length == 0">
