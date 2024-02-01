@@ -8,7 +8,7 @@ import {User} from "../spotify/interfaces/user";
 
 @Component({
   host: {
-  '(document:click)': 'hideUserOptionsOnClick($event)'
+    '(document:click)': 'hideUserOptionsOnClick($event)'
   },
   selector: 'app-nav',
   standalone: true,
@@ -24,6 +24,7 @@ export class NavComponent {
   userImage: Image | null = null
   user: User | null = null
   showUserOptions: boolean = false
+  stayLoggedIn: boolean = false
 
   constructor(
     protected auth: AuthService,
@@ -38,6 +39,7 @@ export class NavComponent {
     if (this.auth.getTokenAvailable()) {
       this.getCurrentUser()
     }
+    this.stayLoggedIn = this.auth.getStayLoggedIn()
   }
 
   logout() {
@@ -61,5 +63,11 @@ export class NavComponent {
     if (!this.elRef.nativeElement.contains(event.target)) {
       this.showUserOptions = false
     }
+  }
+
+  toggleStayLoggedIn() {
+    this.stayLoggedIn = !this.stayLoggedIn
+    console.log(this.stayLoggedIn)
+    this.auth.setStayLoggedIn(this.stayLoggedIn)
   }
 }

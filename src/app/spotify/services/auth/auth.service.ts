@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {Subject} from "rxjs";
 import {BaseUrls} from "../../urls/base-urls";
+import {RandomService} from "../../../shared/random.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthService {
   private static token: string | null = null
   private static refreshToken: string | null = null
   private static tokenValid: Date | null = null
+  private static stayLoggedIn: boolean = !!localStorage.getItem('stayLoggedIn')
 
   private readonly redirectUrlAuth: string = 'http://localhost:4200'
   private readonly redirectUrlToken: string = 'http://localhost:4200'
@@ -27,8 +29,13 @@ export class AuthService {
 
   private readonly authUrl: string
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private random: RandomService) {
     this.authUrl = `${BaseUrls.authUrl}?response_type=code&client_id=${CLIENT_ID}&scope=${this.scopes.join(' ')}&redirect_uri=${this.redirectUrlAuth}`
+    if (sessionStorage.getItem('token') && sessionStorage.getItem('refresh')) {
+      AuthService.token = sessionStorage.getItem('token')
+      AuthService.refreshToken = sessionStorage.getItem('refresh')
+      AuthService.stayLoggedIn = true
+    }
   }
 
   getAuthUrl() {
@@ -61,8 +68,8 @@ export class AuthService {
       let duration = new Date()
       duration.setMinutes(duration.getMinutes() + 59)
 
-      AuthService.refreshToken = response.refresh_token
-      AuthService.token = response.access_token
+      this.setRefreshToken(response.refresh_token)
+      this.setAccessToken(response.access_token)
       AuthService.tokenValid = duration
 
       this.router.navigateByUrl('').then()
@@ -101,15 +108,15 @@ export class AuthService {
       const duration = new Date()
       duration.setMinutes(duration.getMinutes() + 59)
 
-      AuthService.token = response.access_token
+      this.setAccessToken(response.access_token)
       AuthService.tokenValid = duration
     })
   }
 
   logout() {
     AuthService.tokenValid = null
-    AuthService.token = null
-    AuthService.refreshToken = null
+    this.setAccessToken(null)
+    this.setRefreshToken(null)
     this.tokenAvailable$.next(false)
   }
 
@@ -121,6 +128,22 @@ export class AuthService {
     return AuthService.token
   }
 
+  setAccessToken(token: string | null) {
+    AuthService.token = token
+    if (AuthService.stayLoggedIn) {
+      if (token) sessionStorage.setItem('token', token)
+      else sessionStorage.removeItem('token')
+    }
+  }
+
+  setRefreshToken(refreshToken: string | null) {
+    AuthService.refreshToken = refreshToken
+    if (AuthService.stayLoggedIn) {
+      if (refreshToken) sessionStorage.setItem('refresh', refreshToken)
+      else sessionStorage.removeItem('refresh')
+    }
+  }
+
   getAuthHeader(): HttpHeaders {
     if (this.getTokenAvailable()) {
       return new HttpHeaders({
@@ -128,5 +151,24 @@ export class AuthService {
       })
     }
     return new HttpHeaders()
+  }
+
+  setStayLoggedIn(mode: boolean) {
+    AuthService.stayLoggedIn = mode
+    if (!mode) {
+      sessionStorage.removeItem('refresh')
+      sessionStorage.removeItem('token')
+      localStorage.removeItem('stayLoggedIn')
+    } else {
+      if (AuthService.refreshToken && AuthService.token) {
+        sessionStorage.setItem('refresh', AuthService.refreshToken)
+        sessionStorage.setItem('token', AuthService.token)
+      }
+      localStorage.setItem('stayLoggedIn', this.random.getString(30))
+    }
+  }
+
+  getStayLoggedIn(): boolean {
+    return AuthService.stayLoggedIn
   }
 }
