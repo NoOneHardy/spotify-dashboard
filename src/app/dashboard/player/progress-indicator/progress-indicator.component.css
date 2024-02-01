@@ -8,6 +8,10 @@
   column-gap: 10px;
 }
 
+.progress, .duration {
+  font-family: monospace;
+}
+
 app-slider-input {
   width: 80%;
 }
