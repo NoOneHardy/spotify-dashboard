@@ -47,7 +47,7 @@ export class PlayerComponent {
       const device = this.availableDevices[0]
       if (this.playbackState) {
         if (this.playbackState && this.playbackState.item) {
-          this.playerS.resumePlayBack(this.playbackState.item.uri, this.playbackState.context, this.playbackState.progress_ms)
+          this.playerS.resumePlayBack()
         }
         this.playbackState.is_playing = true
         this.playbackState.actions.disallows.pausing = false
@@ -90,8 +90,6 @@ export class PlayerComponent {
   }
 
   setTrackProgress(progress_ms: number) {
-    if (this.playbackState && this.playbackState.item) {
-      this.playerS.resumePlayBack(this.playbackState.item.uri, this.playbackState.context, progress_ms)
-    }
+    this.playerS.seekToPosition(progress_ms)
   }
 }

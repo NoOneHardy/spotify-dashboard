@@ -24,7 +24,6 @@
   <app-progress-indicator
     [progress]="playbackState?.progress_ms"
     [duration]="playbackState?.item?.duration_ms"
-    [disabled]="playbackState ? playbackState.shuffle_state : false"
     (goToPosition)="setTrackProgress($event)"
   ></app-progress-indicator>
 </div>

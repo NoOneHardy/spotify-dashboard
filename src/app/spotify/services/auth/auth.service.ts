@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {CLIENT_ID, CLIENT_SECRET} from "./client";
+import {CLIENT_ID, CLIENT_SECRET} from "../../information/client";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {Subject} from "rxjs";
+import {BaseUrls} from "../../urls/base-urls";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class AuthService {
   private readonly authUrl: string
 
   constructor(private http: HttpClient, private router: Router) {
-    this.authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${CLIENT_ID}&scope=${this.scopes.join(' ')}&redirect_uri=${this.redirectUrlAuth}`
+    this.authUrl = `${BaseUrls.authUrl}?response_type=code&client_id=${CLIENT_ID}&scope=${this.scopes.join(' ')}&redirect_uri=${this.redirectUrlAuth}`
   }
 
   getAuthUrl() {
@@ -35,7 +36,6 @@ export class AuthService {
   }
 
   getNewAccessToken(code: string) {
-    const url: string = 'https://accounts.spotify.com/api/token'
     const base64 = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)
     const headers = new HttpHeaders({
       'Authorization': `Basic ${base64}`,
@@ -55,7 +55,7 @@ export class AuthService {
       scope: string[],
       expires_in: number,
       refresh_token: string
-    }>(url, form, {
+    }>(BaseUrls.token, form, {
       headers: headers
     }).subscribe((response) => {
       let duration = new Date()
@@ -95,7 +95,7 @@ export class AuthService {
       token_type: string,
       scope: string[],
       expires_in: number,
-    }>('https://accounts.spotify.com/api/token', form, {
+    }>(BaseUrls.token, form, {
       headers: headers
     }).subscribe((response) => {
       const duration = new Date()

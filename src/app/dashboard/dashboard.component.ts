@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {PlayerComponent} from "./player/player.component";
-import {AuthService} from "../shared/auth.service";
+import {AuthService} from "../spotify/services/auth/auth.service";
 import {NgIf} from "@angular/common";
 import {DeviceManagerComponent} from "./device-manager/device-manager.component";
 import {PlaybackState} from "../spotify/interfaces/playback-state";

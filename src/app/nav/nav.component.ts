@@ -1,7 +1,7 @@
 import {Component, ElementRef} from '@angular/core';
 import {LoginComponent} from "./login/login.component";
 import {NgIf, NgOptimizedImage} from "@angular/common";
-import {AuthService} from "../shared/auth.service";
+import {AuthService} from "../spotify/services/auth/auth.service";
 import {Image} from "../spotify/interfaces/helper/image";
 import {UserService} from "../spotify/services/user/user.service";
 import {User} from "../spotify/interfaces/user";
