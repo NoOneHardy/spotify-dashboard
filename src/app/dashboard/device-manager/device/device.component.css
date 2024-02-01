@@ -7,9 +7,18 @@
   gap: 10px;
   align-items: center;
   width: 100%;
+  transition: color 0.2s ease-in-out;
 }
 
-h2, .material-icons-outlined {
+.device:hover {
+  color: #666;
+}
+
+.device.active:hover {
+  color: #076000;
+}
+
+h2, .device>.material-icons-outlined {
   cursor: pointer;
 }
 

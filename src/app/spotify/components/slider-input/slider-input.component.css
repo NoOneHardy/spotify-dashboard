@@ -32,11 +32,15 @@ input::-webkit-slider-thumb {
   border-radius: 5px;
 }
 
-input:not(:disabled):hover {
+input:not(:disabled) {
   cursor: pointer;
 }
 
 input:not(:disabled):hover::-webkit-slider-thumb {
   background-color: var(--spotify-text-dark);
   box-shadow: 0 0 15px #000;
+}
+
+input:disabled {
+  cursor: not-allowed;
 }
