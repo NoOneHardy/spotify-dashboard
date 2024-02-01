@@ -5,6 +5,6 @@ export interface Device {
   is_restricted: boolean
   name: string
   type: string
-  volume_percent: number | null
+  volume_percent: number | undefined
   supports_volume: boolean
 }

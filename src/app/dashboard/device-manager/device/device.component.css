@@ -6,6 +6,10 @@
   height: 50px;
   gap: 10px;
   align-items: center;
+  width: 100%;
+}
+
+h2, .material-icons-outlined {
   cursor: pointer;
 }
 
@@ -25,8 +29,25 @@
   display: flex;
   align-items: center;
   font-size: 0.8rem;
+  margin-left: auto;
+  width: 40%;
+  gap: 10px;
+}
+
+.volume-info {
+  display: flex;
+}
+
+.volume-percent {
+  min-width: 4ch;
 }
 
 .volume .material-icons-outlined {
   font-size: 0.8rem;
+  margin-left: auto;
+}
+
+.volume-slider {
+  display: block;
+  width: 100%;
 }

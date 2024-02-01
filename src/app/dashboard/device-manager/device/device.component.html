@@ -1,12 +1,21 @@
 <div *ngIf="device" class="device"
-     (click)="onChangeDevice()"
      [ngClass]="[device.is_active ? 'active' : '']">
-  <span class="material-icons-outlined">{{ device.type.toLowerCase() }}</span>
+  <span class="material-icons-outlined" (click)="onChangeDevice()">{{ device.type.toLowerCase() }}</span>
   <div class="info">
-    <h2 class="name">{{ device.name }}</h2>
-    <div class="volume">
+    <h2 (click)="onChangeDevice()" class="name">{{ device.name }}</h2>
+  </div>
+  <div class="volume">
+    <div class="volume-info">
       <span class="material-icons-outlined">volume_up</span>
       <span class="volume-percent"><span>{{ device.volume_percent }}%</span></span>
+    </div>
+    <div class="volume-slider" *ngIf="device.volume_percent">
+      <app-slider-input
+        [max]="100"
+        [progress]="device.volume_percent"
+        (valueChanged)="setVolume($event)"
+        [disabled]="!device.supports_volume"
+      ></app-slider-input>
     </div>
   </div>
 </div>

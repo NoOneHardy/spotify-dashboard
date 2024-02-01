@@ -11,7 +11,7 @@ import {NgStyle} from "@angular/common";
   styleUrl: './slider-input.component.css'
 })
 export class SliderInputComponent {
-  @Input() progress: number | undefined = 100
+  @Input() progress: number | undefined = 0
   @Input() max: number | undefined = 100
   @Input() min = 0
   @Input() disabled: boolean = false

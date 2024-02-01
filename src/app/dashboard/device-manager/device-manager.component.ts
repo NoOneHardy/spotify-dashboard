@@ -23,4 +23,8 @@ export class DeviceManagerComponent {
   changeDevice(deviceId: string) {
     this.playerService.transferPlayback(deviceId)
   }
+
+  setVolume(volume: number, deviceId: string) {
+    this.playerService.setPlaybackVolume(volume, deviceId)
+  }
 }

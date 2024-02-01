@@ -119,4 +119,13 @@ export class PlayerService {
       sub.unsubscribe()
     })
   }
+
+  setPlaybackVolume(volume_percent: number, device_id?: string) {
+    this.auth.refreshToken()
+    const sub = this.http.put<string>(PlayerUrls.setPlaybackVolume(volume_percent, device_id), null, {
+      headers: this.auth.getAuthHeader()
+    }).subscribe(() => {
+      sub.unsubscribe()
+    })
+  }
 }
