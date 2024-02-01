@@ -67,7 +67,6 @@ export class NavComponent {
 
   toggleStayLoggedIn() {
     this.stayLoggedIn = !this.stayLoggedIn
-    console.log(this.stayLoggedIn)
     this.auth.setStayLoggedIn(this.stayLoggedIn)
   }
 }
