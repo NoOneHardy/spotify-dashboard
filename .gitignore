@@ -2,5 +2,4 @@
 node_modules
 .angular
 dist
-src/app/shared/client.ts
-src/app/spotify/information/client.ts
+src/app/spotify/information
