@@ -1,0 +1,63 @@
+.analytics {
+  color: var(--spotify-text-dark);
+  font-family: circular-latin, sans-serif;
+  width: 100%;
+  height: 300px;
+  background-color: var(--spotify-background-base-dark);
+  padding: 20px 15px;
+  border-radius: 25px;
+  box-shadow: 2px 2px 15px black;
+  position: relative;
+  overflow: auto;
+}
+
+h2 {
+  text-align: center;
+  padding-left: 5px;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border: none;
+  border-collapse: collapse;
+}
+
+.number {
+  font-family: monospace;
+  font-size: inherit;
+}
+
+.section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 1.15rem;
+  padding: 5px;
+}
+
+tr {
+  border-bottom: solid 1px #aaaaaa60;
+}
+
+td {
+  padding: 5px 5px 2px;
+  font-size: 1rem;
+}
+
+td:not(:nth-child(1)) {
+  text-align: right;
+  width: fit-content;
+}
+
+td:nth-child(3) {
+  width: 8ch
+
+}
+
+.no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

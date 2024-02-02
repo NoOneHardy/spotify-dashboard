@@ -1,0 +1,74 @@
+<div class="analytics">
+  <div *ngIf="trackAudioAnalysis && trackAudioAnalysisSection && trackAudioFeatures">
+    <h2>Analytics</h2>
+    <div class="section">
+      <span class="section-number">Teil: <span
+        class="number">{{ trackAudioAnalysis.sections.indexOf(trackAudioAnalysisSection) + 1 }}</span></span>
+      <span>
+          <span class="number">
+            {{ trackAudioAnalysisSection.start * 1000 | date:'m:ss' }}
+          </span>
+          <span>-</span>
+          <span class="number">
+            {{ (trackAudioAnalysisSection.start + trackAudioAnalysisSection.duration) * 1000 | date:'m:ss' }}
+          </span>
+      </span>
+    </div>
+    <table class="analytics-data">
+      <tr class="key">
+        <td class="name">Tonart</td>
+        <td
+          class="value">{{ getKey(trackAudioAnalysisSection.key) + (trackAudioAnalysisSection.mode == 0 ? 'm' : '') }}
+        </td>
+        <td class="accuracy"><span
+          class="number">{{ trackAudioAnalysisSection.key_confidence * 100 | number:'.1' }}</span>%
+        </td>
+      </tr>
+      <tr class="tempo">
+        <td class="name">Tempo</td>
+        <td class="value"><span class="number">{{ trackAudioAnalysisSection.tempo | number:'1.0-0' }}</span> bpm</td>
+        <td class="accuracy"><span
+          class="number">{{ trackAudioAnalysisSection.tempo_confidence * 100 | number:'.1' }}</span>%
+        </td>
+      </tr>
+      <tr class="loudness">
+        <td class="name">Taktart</td>
+        <td class="value"><span class="number">{{ trackAudioAnalysisSection.time_signature | number:'1.0-0' }}/4</span>
+        </td>
+        <td class="accuracy"><span
+          class="number">{{ trackAudioAnalysisSection.time_signature_confidence * 100 | number:'.1' }}</span>%
+        </td>
+      </tr>
+      <tr class="danceability">
+        <td class="name">Reiz zum Tanzen</td>
+        <td class="value">
+          {{ trackAudioFeatures.danceability < 0.33 ? 'Niedrig' : trackAudioFeatures.danceability < 0.66 ? 'Mittel' : 'Hoch' }}
+        </td>
+        <td class="accuracy">
+          <span class="number">{{ trackAudioFeatures.danceability * 10 | number:'1.0-0' }}/10</span>
+        </td>
+      </tr>
+      <tr class="energy">
+        <td class="name">Energie</td>
+        <td class="value">
+          {{ trackAudioFeatures.energy < 0.33 ? 'Niedrig' : trackAudioFeatures.energy < 0.66 ? 'Mittel' : 'Hoch' }}
+        </td>
+        <td class="accuracy">
+          <span class="number">{{ trackAudioFeatures.energy * 10 | number:'1.0-0' }}/10</span>
+        </td>
+      </tr>
+      <tr class="valence">
+        <td class="name">Aggressivität</td>
+        <td class="value">
+          {{ trackAudioFeatures.valence < 0.33 ? 'Hoch' : trackAudioFeatures.valence < 0.66 ? 'Mittel' : 'Niedrig' }}
+        </td>
+        <td class="accuracy">
+          <span class="number">{{ trackAudioFeatures.valence * -10 + 10 | number:'1.0-0' }}/10</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="no-data" *ngIf="!trackAudioAnalysis">
+    Keine Daten zu diesem Track bekannt
+  </div>
+</div>
