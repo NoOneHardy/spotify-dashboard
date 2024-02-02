@@ -12,7 +12,7 @@ export interface PlaybackState {
   timestamp: number
   progress_ms: number
   is_playing: boolean
-  item: Track | null
+  item: Track | undefined
   currently_playing_type: string
   actions: Actions
 }

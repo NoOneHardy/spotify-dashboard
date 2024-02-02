@@ -7,4 +7,8 @@
     [availableDevices]="availableDevices"
     (refreshPlayback)="getPlaybackState()"
   ></spotify-player>
+  <spotify-analytics
+    [track]="playbackState?.item"
+    [progress_ms]="playbackState?.progress_ms"
+  ></spotify-analytics>
 </div>
