@@ -10,12 +10,12 @@
       <span class="volume-percent"><span>{{ device.volume_percent }}%</span></span>
     </div>
     <div class="volume-slider" *ngIf="device.volume_percent">
-      <app-slider-input
+      <spotify-slider-input
         [max]="100"
         [progress]="device.volume_percent"
         (valueChanged)="setVolume($event)"
         [disabled]="!device.supports_volume"
-      ></app-slider-input>
+      ></spotify-slider-input>
     </div>
   </div>
 </div>

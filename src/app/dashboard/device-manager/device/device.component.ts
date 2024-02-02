@@ -4,7 +4,7 @@ import {NgClass, NgIf} from "@angular/common";
 import {SliderInputComponent} from "../../../spotify/components/slider-input/slider-input.component";
 
 @Component({
-  selector: 'app-device',
+  selector: 'spotify-device',
   standalone: true,
   imports: [
     NgIf,

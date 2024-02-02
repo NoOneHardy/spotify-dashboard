@@ -9,7 +9,7 @@ import {PlayerService} from "../spotify/services/player/player.service";
 import {Subscription} from "rxjs";
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'spotify-dashboard',
   standalone: true,
   imports: [
     NgIf,

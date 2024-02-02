@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgStyle} from "@angular/common";
 
 @Component({
-  selector: 'app-slider-input',
+  selector: 'spotify-slider-input',
   standalone: true,
   imports: [
     NgStyle

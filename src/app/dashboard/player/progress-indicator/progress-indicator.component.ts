@@ -3,7 +3,7 @@ import {DatePipe, NgIf, NgStyle} from "@angular/common";
 import {SliderInputComponent} from "../../../spotify/components/slider-input/slider-input.component";
 
 @Component({
-  selector: 'app-progress-indicator',
+  selector: 'spotify-progress-indicator',
   standalone: true,
   imports: [
     DatePipe,

@@ -3,7 +3,7 @@ import {NgForOf, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
 import {Track} from "../../../spotify/interfaces/track";
 
 @Component({
-  selector: 'app-playing-item',
+  selector: 'spotify-playing-item',
   standalone: true,
   imports: [
     NgOptimizedImage,

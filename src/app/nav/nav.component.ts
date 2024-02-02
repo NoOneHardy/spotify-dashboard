@@ -10,7 +10,7 @@ import {User} from "../spotify/interfaces/user";
   host: {
     '(document:click)': 'hideUserOptionsOnClick($event)'
   },
-  selector: 'app-nav',
+  selector: 'spotify-nav',
   standalone: true,
   imports: [
     LoginComponent,

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {AuthService} from "../../spotify/services/auth/auth.service";
 
 @Component({
-  selector: 'app-login',
+  selector: 'spotify-login',
   standalone: true,
   imports: [],
   templateUrl: './login.component.html',

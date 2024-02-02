@@ -11,11 +11,11 @@
 }
 
 .device:hover {
-  color: #666;
+  color: #aaa;
 }
 
 .device.active:hover {
-  color: #076000;
+  color: #16a448;
 }
 
 h2, .device>.material-icons-outlined {

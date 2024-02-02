@@ -5,7 +5,7 @@ import {DeviceComponent} from "./device/device.component";
 import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
-  selector: 'app-device-manager',
+  selector: 'spotify-device-manager',
   standalone: true,
   imports: [
     DeviceComponent,

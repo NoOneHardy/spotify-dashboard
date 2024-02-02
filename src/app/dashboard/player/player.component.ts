@@ -9,7 +9,7 @@ import {ActionsComponent} from "./actions/actions.component";
 import {Device} from "../../spotify/interfaces/device";
 
 @Component({
-  selector: 'app-player',
+  selector: 'spotify-player',
   standalone: true,
   imports: [
     NgIf,

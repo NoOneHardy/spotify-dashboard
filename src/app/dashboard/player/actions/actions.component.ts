@@ -3,7 +3,7 @@ import {Disallows} from "../../../spotify/interfaces/helper/disallows";
 import {NgClass, NgIf} from "@angular/common";
 
 @Component({
-  selector: 'app-actions',
+  selector: 'spotify-actions',
   standalone: true,
   imports: [
     NgIf,

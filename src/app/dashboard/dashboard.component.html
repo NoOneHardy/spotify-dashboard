@@ -1,10 +1,10 @@
 <div *ngIf="tokenAvailable" class="dashboard">
-  <app-device-manager
+  <spotify-device-manager
     [availableDevices]="availableDevices"
-  ></app-device-manager>
-  <app-player
+  ></spotify-device-manager>
+  <spotify-player
     [playbackState]="playbackState"
     [availableDevices]="availableDevices"
     (refreshPlayback)="getPlaybackState()"
-  ></app-player>
+  ></spotify-player>
 </div>

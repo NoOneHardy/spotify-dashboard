@@ -7,10 +7,10 @@
      [style]="'background-image: url(' + playbackState.item.album.images[0].url + ')'"
 ></div>
 <div class="player">
-  <app-playing-item
+  <spotify-playing-item
     [item]="playbackState?.item"
-  ></app-playing-item>
-  <app-actions
+  ></spotify-playing-item>
+  <spotify-actions
     [disallows]="playbackState?.actions?.disallows"
     [shuffle_state]="playbackState?.shuffle_state"
     [repeatState]="playbackState?.repeat_state"
@@ -20,10 +20,10 @@
     (toggleRepeat)="toggleRepeat($event)"
     (skipPrevious)="skipPrevious()"
     (skipNext)="skipNext()"
-  ></app-actions>
-  <app-progress-indicator
+  ></spotify-actions>
+  <spotify-progress-indicator
     [progress]="playbackState?.progress_ms"
     [duration]="playbackState?.item?.duration_ms"
     (goToPosition)="setTrackProgress($event)"
-  ></app-progress-indicator>
+  ></spotify-progress-indicator>
 </div>

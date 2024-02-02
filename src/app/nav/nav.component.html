@@ -1,6 +1,6 @@
 <nav>
   <h2>{{ user ? 'Hallo ' + user.display_name : 'Spotify Dashboard' }}</h2>
-  <app-login *ngIf="!auth.getTokenAvailable()"></app-login>
+  <spotify-login *ngIf="!auth.getTokenAvailable()"></spotify-login>
   <div class="user" *ngIf="user">
     <button (click)="toggleUserOptions()" class="user-img-wrapper">
       <img [ngSrc]="userImage.url" *ngIf="userImage" [height]="userImage.height"
