@@ -36,9 +36,7 @@ export class AnalyticsComponent {
       if (this.track) {
         this.getTrackAudioAnalysis(this.track.id)
         this.getTrackAudioFeatures(this.track.id)
-        if (this.progress) {
-          this.getTrackAudioAnalysisSection()
-        }
+        this.getTrackAudioAnalysisSection()
       }
     }
   }

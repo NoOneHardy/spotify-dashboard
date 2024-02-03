@@ -40,7 +40,7 @@
         </td>
       </tr>
       <tr class="danceability">
-        <td class="name">Reiz zum Tanzen</td>
+        <td class="name">Rhythmisch</td>
         <td class="value">
           {{ trackAudioFeatures.danceability < 0.33 ? 'Niedrig' : trackAudioFeatures.danceability < 0.66 ? 'Mittel' : 'Hoch' }}
         </td>
@@ -68,7 +68,7 @@
       </tr>
     </table>
   </div>
-  <div class="no-data" *ngIf="!trackAudioAnalysis">
+  <div class="no-data" *ngIf="!trackAudioAnalysis || !trackAudioFeatures || !trackAudioAnalysisSection">
     Keine Daten zu diesem Track bekannt
   </div>
 </div>
