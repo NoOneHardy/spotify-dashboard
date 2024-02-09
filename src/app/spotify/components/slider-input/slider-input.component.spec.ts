@@ -1,6 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SliderInputComponent } from './slider-input.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {SliderInputComponent} from './slider-input.component';
 
 describe('SliderInputComponent', () => {
   let component: SliderInputComponent;
@@ -11,7 +10,7 @@ describe('SliderInputComponent', () => {
       imports: [SliderInputComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(SliderInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
