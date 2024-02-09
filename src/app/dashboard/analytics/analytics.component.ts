@@ -3,7 +3,7 @@ import {Track} from "../../spotify/interfaces/track";
 import {TrackService} from "../../spotify/services/track/track.service";
 import {TrackAudioAnalysis} from "../../spotify/interfaces/http-responses/track-audio-analysis/track-audio-analysis";
 import {DeviceComponent} from "../device-manager/device/device.component";
-import {DatePipe, DecimalPipe, NgForOf, NgIf} from "@angular/common";
+import {DatePipe, DecimalPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {
   TrackAudioAnalysisSection
 } from "../../spotify/interfaces/http-responses/track-audio-analysis/track-audio-analysis-section";
@@ -17,7 +17,8 @@ import {TrackAudioFeatures} from "../../spotify/interfaces/http-responses/track-
     NgForOf,
     NgIf,
     DecimalPipe,
-    DatePipe
+    DatePipe,
+    NgClass
   ],
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.css'
