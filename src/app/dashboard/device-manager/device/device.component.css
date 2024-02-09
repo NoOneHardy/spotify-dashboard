@@ -54,6 +54,8 @@ h2, .device>.material-icons-outlined {
 .volume .material-icons-outlined {
   font-size: 0.8rem;
   margin-left: auto;
+  display: flex;
+  align-items: center;
 }
 
 .volume-slider {

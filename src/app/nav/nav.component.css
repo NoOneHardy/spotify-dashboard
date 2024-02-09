@@ -9,14 +9,14 @@ nav {
 
 h2 {
   color: var(--spotify-text-dark);
-  font-family: circular-latin, sans-serif;
+  font-family: var(--font-family);
 }
 
 .user {
   margin-left: auto;
   position: relative;
   display: inline-block;
-  font-family: circular-latin, sans-serif;
+  font-family: var(--font-family);
 }
 
 .user-img-wrapper {
