@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DeviceManagerComponent } from './device-manager.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {DeviceManagerComponent} from './device-manager.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('DeviceManagerComponent', () => {
   let component: DeviceManagerComponent;
@@ -8,10 +8,13 @@ describe('DeviceManagerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeviceManagerComponent]
+      imports: [
+        DeviceManagerComponent,
+        HttpClientTestingModule
+      ]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(DeviceManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

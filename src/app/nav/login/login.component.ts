@@ -11,6 +11,6 @@ import {AuthService} from "../../spotify/services/auth/auth.service";
 export class LoginComponent {
   authUrl: string
   constructor(private auth: AuthService) {
-    this.authUrl = auth.getAuthUrl()
+    this.authUrl = this.auth.getAuthUrl()
   }
 }
