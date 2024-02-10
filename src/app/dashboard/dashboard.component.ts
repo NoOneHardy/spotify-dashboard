@@ -8,6 +8,7 @@ import {Device} from "../spotify/interfaces/device";
 import {PlayerService} from "../spotify/services/player/player.service";
 import {Subscription} from "rxjs";
 import {AnalyticsComponent} from "./analytics/analytics.component";
+import {SearchComponent} from "./search/search.component";
 
 @Component({
   selector: 'spotify-dashboard',
@@ -16,7 +17,8 @@ import {AnalyticsComponent} from "./analytics/analytics.component";
     NgIf,
     PlayerComponent,
     DeviceManagerComponent,
-    AnalyticsComponent
+    AnalyticsComponent,
+    SearchComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'

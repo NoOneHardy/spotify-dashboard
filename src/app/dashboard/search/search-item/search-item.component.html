@@ -1,0 +1,22 @@
+<div class="item" *ngIf="item" (click)="playTrack()">
+  <div class="image" (click)="playAudio()">
+    <img [ngSrc]="item.album.images[0].url"
+         [height]="item.album.images[0].height"
+         [width]="item.album.images[0].width"
+         alt="">
+    <span *ngIf="item.preview_url" class="material-icons">{{audioPlaying ? 'pause' : 'play_arrow'}}</span>
+  </div>
+  <span class="name">{{ item.name }}</span>
+  <div class="artists">
+    <div class="artist" *ngFor="let artist of item.artists">
+      <ng-container *ngIf="item.artists.indexOf(artist) < 5">
+        <span class="artist-name">{{ artist.name }}</span>
+        <span class="artist-separator"
+              *ngIf="artist.id != item.artists[(item.artists.length - 1) > 4 ? 4 : item.artists.length - 1].id">,</span>
+      </ng-container>
+    </div>
+  </div>
+  <audio #audio>
+    <source [src]="item.preview_url" type="audio/mp3">
+  </audio>
+</div>

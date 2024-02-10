@@ -1,0 +1,11 @@
+<div class="search">
+  <div class="input">
+    <input [formControl]="searchInput" (input)="search(searchInput.getRawValue())"
+           placeholder="Was möchtest du hören..."
+           class="search-input">
+    <span class="material-icons-outlined" (click)="search(searchInput.getRawValue())">search</span>
+  </div>
+  <div class="results" *ngIf="results.length > 0">
+    <spotify-search-item *ngFor="let item of results" [item]="item"></spotify-search-item>
+  </div>
+</div>
