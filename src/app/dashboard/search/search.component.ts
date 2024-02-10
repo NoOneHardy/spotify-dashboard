@@ -1,12 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, Input} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {debounceTime, distinctUntilChanged, Subject, switchMap} from "rxjs";
 import {SearchService} from "../../spotify/services/search/search.service";
 import {Track} from "../../spotify/interfaces/track";
 import {SearchItemComponent} from "./search-item/search-item.component";
 import {NgForOf, NgIf} from "@angular/common";
+import {Device} from "../../spotify/interfaces/device";
 
 @Component({
+  host: {
+    '(document:click)': 'hideSearchResultsOnClick($event)'
+  },
   selector: 'spotify-search',
   standalone: true,
   imports: [
@@ -19,14 +23,16 @@ import {NgForOf, NgIf} from "@angular/common";
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
+  @Input() available_device?: Device
   protected input$ = new Subject<string>()
+  protected showResults = true
 
   protected searchInput = new FormControl<string>('', {
     nonNullable: true
   })
   protected results: Track[] = []
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private elRef: ElementRef) {
     this.input$.pipe(
       debounceTime(1000),
       distinctUntilChanged(),
@@ -52,6 +58,12 @@ export class SearchComponent {
       return
     }
     this.input$.next(value)
+  }
+
+  hideSearchResultsOnClick(event: Event) {
+    if (!this.elRef.nativeElement.contains(event.target)) {
+      this.showResults = false
+    }
   }
 }
 

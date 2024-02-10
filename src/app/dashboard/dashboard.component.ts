@@ -6,7 +6,7 @@ import {DeviceManagerComponent} from "./device-manager/device-manager.component"
 import {PlaybackState} from "../spotify/interfaces/playback-state";
 import {Device} from "../spotify/interfaces/device";
 import {PlayerService} from "../spotify/services/player/player.service";
-import {Subscription} from "rxjs";
+import {Subscription, timer} from "rxjs";
 import {AnalyticsComponent} from "./analytics/analytics.component";
 import {SearchComponent} from "./search/search.component";
 
@@ -44,6 +44,27 @@ export class DashboardComponent {
       this.pollAvailableDevices()
       this.pollPlaybackState()
     }
+
+    timer(0, 1000).subscribe(() => {
+      if (this.playbackState) {
+        if (this.playbackState.is_playing && this.playbackState.item) {
+          this.playbackState.progress_ms += 1000
+          if (this.playbackState.progress_ms >= this.playbackState.item.duration_ms) {
+            let item = this.playbackState.item
+            setTimeout(() => {
+              if (this.playbackState && this.playbackState.item?.id === item.id) {
+                this.playerService.playSimilar(item.id, item.artists[0].id)
+              }
+            }, 1000)
+            this.playerService.refreshPlayback.next()
+          }
+        }
+      }
+    })
+
+    this.playerService.refreshPlayback.subscribe(() => {
+      this.getPlaybackState()
+    })
   }
 
   private pollPlaybackState(): Subscription {
