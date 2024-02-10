@@ -14,6 +14,7 @@
   color: var(--spotify-text-dark);
   font-family: var(--font-family);
   overflow: hidden;
+  cursor: pointer;
 }
 
 .image {
@@ -43,6 +44,7 @@
 .name {
   font-size: 1.3rem;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .artists {

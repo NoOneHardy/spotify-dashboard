@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {PlaybackState} from "../../spotify/interfaces/playback-state";
 import {PlayerService} from "../../spotify/services/player/player.service";
 import {DatePipe, NgForOf, NgIf, NgOptimizedImage, NgStyle} from "@angular/common";
-import {timer} from "rxjs";
 import {PlayingItemComponent} from "./playing-item/playing-item.component";
 import {ProgressIndicatorComponent} from "./progress-indicator/progress-indicator.component";
 import {ActionsComponent} from "./actions/actions.component";
@@ -27,20 +26,8 @@ import {Device} from "../../spotify/interfaces/device";
 export class PlayerComponent {
   @Input() playbackState: PlaybackState | null = null
   @Input() availableDevices: Device[] = []
-  @Output() refreshPlayback = new EventEmitter<void>()
 
-  constructor(private playerS: PlayerService) {
-    timer(0, 1000).subscribe(() => {
-      if (this.playbackState) {
-        if (this.playbackState.is_playing && this.playbackState.item) {
-          this.playbackState.progress_ms += 1000
-          if (this.playbackState.progress_ms >= this.playbackState.item.duration_ms) {
-            this.refreshPlayback.emit()
-          }
-        }
-      }
-    })
-  }
+  constructor(private playerS: PlayerService) {}
 
   resumePlayback() {
     if (this.availableDevices.length > 0) {
@@ -86,6 +73,11 @@ export class PlayerComponent {
   }
 
   skipNext() {
+    if (this.playbackState && this.playbackState.item && !this.playbackState.context) {
+      let item = this.playbackState.item
+      this.playerS.playSimilar(item.id, item.artists[0].id, item.artists[0].genres ? item.artists[0].genres[0] : undefined)
+      return
+    }
     this.playerS.skipNext()
   }
 
