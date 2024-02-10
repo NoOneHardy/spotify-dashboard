@@ -2,9 +2,14 @@ import {Injectable} from '@angular/core';
 import {AuthService} from "../auth/auth.service";
 import {HttpClient} from "@angular/common/http";
 import {PlaybackState} from "../../interfaces/playback-state";
-import {Observable, switchMap, timer} from "rxjs";
+import {Observable, Subject, switchMap, timer} from "rxjs";
 import {Device} from "../../interfaces/device";
 import {PlayerUrls} from "../../urls/player-urls";
+import {PlayerPlayRequestBody} from "../../interfaces/http-bodies/player-play";
+import {Track} from "../../interfaces/track";
+import {Recommendations} from "../../interfaces/http-responses/recommendations";
+import {BaseUrls} from "../../urls/base-urls";
+import {TrackUrls} from "../../urls/track-urls";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +20,8 @@ export class PlayerService {
     private http: HttpClient
   ) {
   }
+
+  refreshPlayback = new Subject<void>()
 
   pollPlaybackState(): Observable<PlaybackState> {
     this.auth.refreshToken()
@@ -126,6 +133,36 @@ export class PlayerService {
       headers: this.auth.getAuthHeader()
     }).subscribe(() => {
       sub.unsubscribe()
+    })
+  }
+
+  play(uris?: string[], device_id?: string, context_uri?: string, offset?: number, position_ms?: number): void {
+    this.auth.refreshToken()
+    const body: PlayerPlayRequestBody = {}
+    if (uris) {
+      body.uris = uris
+    } else if (context_uri) {
+      body.context_uri = context_uri
+      if (offset) body.offset = { position: offset }
+      if (position_ms) body.position_ms = position_ms
+    }
+    const sub = this.http.put<string>(PlayerUrls.resumePlayback(device_id), body, {
+      headers: this.auth.getAuthHeader()
+    }).subscribe(() => {
+      sub.unsubscribe()
+    })
+  }
+
+  playSimilar(track_id: string, artist_id?: string, genre?: string) {
+    this.auth.getAuthHeader()
+    let nextUris: string[] = []
+    this.http.get<Recommendations>(TrackUrls.recommendations([track_id], 1, artist_id ? [artist_id] : [], genre ? [genre] : []), {
+      headers: this.auth.getAuthHeader()
+    }).subscribe((recommendations)=> {
+      recommendations.tracks.map(track => {
+        nextUris.push(track.uri)
+      })
+      this.play(nextUris)
     })
   }
 }
